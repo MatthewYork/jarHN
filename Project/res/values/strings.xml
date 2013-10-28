@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JarHN</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="kBaseURLAddress">https://news.ycombinator.com/</string>
+    <string name="kCookieDomain">news.ycombinator.com</string>
+
+</resources>

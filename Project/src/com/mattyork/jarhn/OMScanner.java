@@ -29,6 +29,8 @@
 
 package com.mattyork.jarhn;
 
+import android.R.integer;
+
 //SCANNER CLASS
 public class OMScanner {
 		private char[] _baseString;
@@ -104,9 +106,15 @@ public class OMScanner {
 				char newChar = this.readCharacter();
 				
 				if (potentialMatchString.equals("")) {
-					if (newChar == returnString.charAt(0)) {
-						potentialMatchString = potentialMatchString + newChar;
-						continue;
+					if (newChar == string.charAt(0)) {
+						if (string.length() == 1) {
+							done = true;
+							break;
+						} else {
+							potentialMatchString = potentialMatchString + newChar;
+							continue;
+						}
+						
 					}
 				}
 				else {

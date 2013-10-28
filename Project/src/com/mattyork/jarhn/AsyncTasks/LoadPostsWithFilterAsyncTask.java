@@ -21,13 +21,12 @@ import com.mattyork.jarhn.R;
 public class LoadPostsWithFilterAsyncTask extends
 		AsyncTask<String, Void, ArrayList<HNPost>> {
 
-	Context context;
 	String filter;
 	String url;
 	
-	public LoadPostsWithFilterAsyncTask(Context context, PostFilterType filter) {
+	public LoadPostsWithFilterAsyncTask(PostFilterType filter) {
 		// TODO Auto-generated constructor stub
-		this.context = context;
+	
 		String pathAddition = "";
 		
 		switch (filter) {
@@ -49,7 +48,7 @@ public class LoadPostsWithFilterAsyncTask extends
         default:
             break;
     }
-		this.url = this.context.getString(R.string.kBaseURLAddress) + pathAddition;
+		this.url = "http://news.ycombinator.com/" + pathAddition;
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ public class HNPost {
 	    ArrayList<HNPost> postArray = new ArrayList<HNPost>();
 	    
 	    // Scan through components and build posts
-	    for (int xx = 0; xx < postArray.size(); xx++) {
+	    for (int xx = 1; xx < htmlComponents.size(); xx++) {
 			HNPost newPost = new HNPost();
 			
 			OMScanner scanner = new OMScanner(htmlComponents.get(xx));
@@ -47,7 +47,6 @@ public class HNPost {
 			newPost.UrlString = scanner.scanToString("\">");
 			
 			//Scan Title
-			scanner.skipToString("\">");
 			newPost.Title = scanner.scanToString("</a>");
 			
 			//Scan Points
@@ -98,6 +97,7 @@ public class HNPost {
 				HNManager.getInstance().postFNID = scanner.scanToString("\"");
 			}
 	    
+			postArray.add(newPost);
 	    }
 	    
 		return postArray;

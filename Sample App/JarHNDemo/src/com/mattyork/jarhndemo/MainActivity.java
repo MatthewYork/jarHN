@@ -2,7 +2,6 @@ package com.mattyork.jarhndemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -44,6 +43,7 @@ public class MainActivity extends Activity implements OnInteractListener {
 	}
 
 	public void getPostsWithFilterType(PostFilterType type) {
+		
 		LoadPostsWithFilterAsyncTask task = new LoadPostsWithFilterAsyncTask(type){
 			
 			@Override

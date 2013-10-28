@@ -1,16 +1,8 @@
 package com.mattyork.jarhn;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import android.os.AsyncTask;
 
 import com.mattyork.jarhn.HNObjects.HNUser;
 

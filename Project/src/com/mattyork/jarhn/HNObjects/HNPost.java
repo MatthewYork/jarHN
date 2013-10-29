@@ -15,14 +15,14 @@ public class HNPost {
 	}
 
 	public PostType Type;
-	String Username;
-	String UrlString;
-	String UrlDomain;
-	String Title;
-	int Points;
-	int CommentCount;
-	String PostId;
-	String TimeCreatedString;
+	public String Username;
+	public String UrlString;
+	public String UrlDomain;
+	public String Title;
+	public int Points;
+	public int CommentCount;
+	public String PostId;
+	public String TimeCreatedString;
 	
 	/***
 	 * Creates an ArrayList of Posts from a given HTML stirng and valid FNID.

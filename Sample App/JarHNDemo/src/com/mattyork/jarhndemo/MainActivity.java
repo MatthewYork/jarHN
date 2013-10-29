@@ -1,9 +1,16 @@
 package com.mattyork.jarhndemo;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -14,9 +21,11 @@ import com.slidinglayer.SlidingLayer;
 import com.slidinglayer.SlidingLayer.OnInteractListener;
 //import com.mattyork.jarhn.*;
 
-public class MainActivity extends Activity implements OnInteractListener {
+public class MainActivity extends Activity implements OnInteractListener, OnItemClickListener {
 	
 	SlidingLayer slidingLayer;
+	ListView postsListView;
+	ArrayList<HNPost> posts = new ArrayList<HNPost>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,10 @@ public class MainActivity extends Activity implements OnInteractListener {
 		//Setup left menu
 		setupLeftMenu();
 		
+		//Setup postsTable
+		setupPostsListView();
+		
+		//Fetch top posts
 		getPostsWithFilterType(PostFilterType.PostFilterTypeTop);
 	}
 
@@ -48,10 +61,21 @@ public class MainActivity extends Activity implements OnInteractListener {
 			
 			@Override
 			protected void onPostExecute(java.util.ArrayList<HNPost> result) {
+				posts = result;
+				
+				if (posts != null) {
+					postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, R.layout.post_cell, posts));
+				}
+				
 				 return;
 			};
 		};
 		task.execute();
+	}
+	
+	public void setupPostsListView() {
+		postsListView = (ListView)findViewById(R.id.PostsListView);
+		postsListView.setOnItemClickListener(this);
 	}
 	
 	public void setupLeftMenu() {
@@ -69,7 +93,7 @@ public class MainActivity extends Activity implements OnInteractListener {
         
         slidingLayer.openLayer(true);
 	}
-
+	
 	@Override
 	public void onOpen() {
 		// TODO Auto-generated method stub
@@ -114,6 +138,14 @@ public class MainActivity extends Activity implements OnInteractListener {
 		}
 		
 		return super.onMenuItemSelected(featureId, item);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent(this, LinkActivity.class);
+		i.putExtra("url", posts.get(position).UrlString);
+		this.startActivity(i);
 	}
 	
 	

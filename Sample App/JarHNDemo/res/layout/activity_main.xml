@@ -19,17 +19,11 @@
             android:layout_height="match_parent"
             android:background="#14ad8f" >
 
-            <TextView
-                android:id="@+id/swipeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="15dip"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:paddingBottom="80dp"
-                android:textColor="#074035"
-                android:textSize="17sp" />
+            <fragment
+            android:id="@+id/leftMenuFragment"
+            android:name="com.mattyork.jarhndemo.Fragments.LeftMenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         </RelativeLayout>
     </com.slidinglayer.SlidingLayer>

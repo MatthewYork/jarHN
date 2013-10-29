@@ -1,4 +1,4 @@
-package com.mattyork.jarhndemo;
+package com.mattyork.jarhndemo.Adapters;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.mattyork.jarhn.HNObjects.HNPost;
+import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.R.id;
 
 public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 

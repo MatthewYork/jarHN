@@ -1,10 +1,10 @@
-package com.mattyork.jarhndemo;
+package com.mattyork.jarhndemo.Activities;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +17,13 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.mattyork.jarhn.HNWebService.PostFilterType;
 import com.mattyork.jarhn.AsyncTasks.LoadPostsWithFilterAsyncTask;
 import com.mattyork.jarhn.HNObjects.HNPost;
+import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Adapters.PostsCellAdapter;
 import com.slidinglayer.SlidingLayer;
 import com.slidinglayer.SlidingLayer.OnInteractListener;
 //import com.mattyork.jarhn.*;
 
-public class MainActivity extends Activity implements OnInteractListener, OnItemClickListener {
+public class MainActivity extends FragmentActivity implements OnInteractListener, OnItemClickListener {
 	
 	SlidingLayer slidingLayer;
 	ListView postsListView;

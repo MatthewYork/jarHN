@@ -1,9 +1,9 @@
-package com.mattyork.jarhndemo;
+package com.mattyork.jarhndemo.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-public class CommentsActivity extends Activity {
+public class CommentsActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

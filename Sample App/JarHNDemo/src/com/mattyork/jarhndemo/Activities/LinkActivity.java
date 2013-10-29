@@ -1,11 +1,13 @@
-package com.mattyork.jarhndemo;
+package com.mattyork.jarhndemo.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-public class LinkActivity extends Activity {
+import com.mattyork.jarhndemo.R;
+
+public class LinkActivity extends FragmentActivity {
 
 	String linkUrlString;
 	WebView linkWebView;
@@ -14,6 +16,7 @@ public class LinkActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.link_activity);
 		
 		//Setup actionbar
 		getActionBar().setHomeButtonEnabled(true);

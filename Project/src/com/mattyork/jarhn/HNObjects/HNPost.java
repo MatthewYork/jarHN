@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.R.integer;
+import android.util.Log;
 
 import com.mattyork.jarhn.HNManager;
 import com.mattyork.jarhn.OMScanner;
@@ -15,14 +16,14 @@ public class HNPost {
 	}
 
 	public PostType Type;
-	public String Username;
-	public String UrlString;
-	public String UrlDomain;
-	public String Title;
-	public int Points;
-	public int CommentCount;
-	public String PostId;
-	public String TimeCreatedString;
+	public String Username = "";
+	public String UrlString = "";
+	public String UrlDomain = "";
+	public String Title = "";
+	public int Points = 0;
+	public int CommentCount = 0;
+	public String PostId = "";
+	public String TimeCreatedString = "";
 	
 	/***
 	 * Creates an ArrayList of Posts from a given HTML stirng and valid FNID.
@@ -38,6 +39,7 @@ public class HNPost {
 	    
 	    // Scan through components and build posts
 	    for (int xx = 1; xx < htmlComponents.size(); xx++) {
+	    	Log.i("asdf", xx+"");
 			HNPost newPost = new HNPost();
 			
 			OMScanner scanner = new OMScanner(htmlComponents.get(xx));
@@ -50,28 +52,47 @@ public class HNPost {
 			newPost.Title = scanner.scanToString("</a>");
 			
 			//Scan Points
-			scanner.skipToString("<span id=score_");
-			scanner.skipToString(">");
-			newPost.Points = Integer.parseInt(scanner.scanToString(" points"));
+			if (htmlComponents.get(xx).contains("id=score_")) {
+				scanner.skipToString("<span id=score_");
+				scanner.skipToString(">");
+				newPost.Points = Integer.parseInt(scanner.scanToString(" points"));
+			}
 			
 			//Scan Author
-			scanner.skipToString("<a href=\"user?id=");
-			scanner.skipToString(">");
-			newPost.Username = scanner.scanToString("</a> ");
+			if (htmlComponents.get(xx).contains("<a href=\"user?id=")) {
+				scanner.skipToString("<a href=\"user?id=");
+				scanner.skipToString(">");
+				newPost.Username = scanner.scanToString("</a> ");
+			}
+			else {
+				scanner.skipToString("</a> ");
+			}
 			
-			//Scan Time Ago
-			scanner.scanToString("  |");
+			if (htmlComponents.get(xx).contains("  |")) {
+				//Scan Time Ago
+				newPost.TimeCreatedString = scanner.scanToString("  |");
+			}
+			else {
+				scanner.skipToString("<td class=\"subtext\">");
+				newPost.TimeCreatedString = scanner.scanToString("</td>");
+			}
 			
 			//Scan Number of Comments
-			scanner.skipToString("<a href=\"item?id=");
-			newPost.PostId = scanner.scanToString("\">");
-			//Scan over the comment string to get number of comments (0 if discuss)
-			String commentString = scanner.scanToString("</a>");
-			if (commentString.equals("discuss")) {
-				newPost.CommentCount = 0;
-			} else {
-				OMScanner commentScanner = new OMScanner(commentString);
-				newPost.CommentCount = Integer.parseInt(commentScanner.scanToString(" "));
+			if (htmlComponents.get(xx).contains("<a href=\"item?id=")) {
+				scanner.skipToString("<a href=\"item?id=");
+				newPost.PostId = scanner.scanToString("\">");
+				
+				//Scan over the comment string to get number of comments (0 if discuss)
+				String commentString = scanner.scanToString("</a>");
+				if (commentString.equals("discuss")) {
+					newPost.CommentCount = 0;
+				} else {
+					OMScanner commentScanner = new OMScanner(commentString);
+					newPost.CommentCount = Integer.parseInt(commentScanner.scanToString(" "));
+				}
+			}
+			else {
+				scanner.skipToString("\">");
 			}
 			
 			//Check if Jobs post

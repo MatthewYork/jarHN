@@ -103,7 +103,13 @@ public class OMScanner {
 			
 			boolean done = false;
 			while (!done) {
-				char newChar = this.readCharacter();
+				char newChar = ' ';
+				if (this._baseString.length > this._index) {
+					newChar = this.readCharacter();
+				} 
+				else {
+					return returnString + potentialMatchString;
+				}
 				
 				if (potentialMatchString.equals("")) {
 					if (newChar == string.charAt(0)) {

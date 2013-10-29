@@ -16,15 +16,18 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.mattyork.jarhndemo.Activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="CommentsActivity"></activity>
-        <activity android:name="LinkActivity"></activity>
+        <activity android:name=".Activities.CommentsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activities.LinkActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

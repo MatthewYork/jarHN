@@ -2,14 +2,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333" >
+    android:background="@color/LeftMenuBackgroundDarkGrey" >
 
-    <LinearLayout
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        
+        android:layout_height="wrap_content">
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FILTER HOMEPAGE"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:paddingRight="3dp"
+                android:background="@color/LeftMenuSeparatorGrey"
+                android:textColor="@color/LeftMenuTextColor"
+                android:textStyle="italic"/>
+                
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

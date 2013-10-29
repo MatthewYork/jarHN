@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
 public class LinkActivity extends FragmentActivity {
 
@@ -24,6 +25,9 @@ public class LinkActivity extends FragmentActivity {
 		
 		//Get link from extra
 		linkUrlString = this.getIntent().getStringExtra("url");
+		if (SettingsManager.getInstance().usingReadability) {
+			linkUrlString = "http://www.readability.com/m?url="+linkUrlString;
+		}
 		
 		//Setup link web view
 		linkWebView = (WebView)findViewById(R.id.linkWebView);

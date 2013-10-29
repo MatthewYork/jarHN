@@ -19,6 +19,7 @@ import com.mattyork.jarhn.AsyncTasks.LoadPostsWithFilterAsyncTask;
 import com.mattyork.jarhn.HNObjects.HNPost;
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Adapters.PostsCellAdapter;
+import com.mattyork.jarhndemo.Helpers.SettingsManager;
 import com.slidinglayer.SlidingLayer;
 import com.slidinglayer.SlidingLayer.OnInteractListener;
 //import com.mattyork.jarhn.*;
@@ -42,6 +43,9 @@ public class MainActivity extends FragmentActivity implements OnInteractListener
 		
 		//Setup left menu
 		setupLeftMenu();
+		
+		//Load default settings
+		SettingsManager.getInstance().loadSettingsFromSharedPreferences();
 		
 		//Setup postsTable
 		setupPostsListView();

@@ -21,6 +21,8 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 	LayoutInflater inflater;
 	
 	TextView postTitleTextView;
+	TextView pointsTextView;
+	TextView dateCreatedTextView;
 	
 	public PostsCellAdapter(Context context, int resource, ArrayList<HNPost> posts) {
 		super(context, resource, posts);
@@ -65,6 +67,14 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 		//Set title
 		postTitleTextView = (TextView) convertView.findViewById(R.id.postCellTitleTextView);
 		postTitleTextView.setText(posts.get(position).Title);
+		
+		//Set points
+		pointsTextView = (TextView) convertView.findViewById(R.id.postCellPointsTextView);
+		pointsTextView.setText(posts.get(position).Points+" Points");
+		
+		//Set date created
+		dateCreatedTextView = (TextView) convertView.findViewById(R.id.postCellDateCreatedTextView);
+		dateCreatedTextView.setText(posts.get(position).TimeCreatedString);
 
 		return convertView;
 	}

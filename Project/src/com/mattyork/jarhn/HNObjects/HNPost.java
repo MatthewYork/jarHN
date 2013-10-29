@@ -12,7 +12,7 @@ import com.mattyork.jarhn.OMScanner;
 
 public class HNPost {
 	public enum PostType {
-		PostTypeDefault, PostTypeAskHN, PostTypeJobs
+		PostTypeDefault, PostTypeAskHN, PostTypeJobs, PostTypeShowHN
 	}
 
 	public PostType Type;
@@ -53,9 +53,11 @@ public class HNPost {
 			
 			//Scan Points
 			if (htmlComponents.get(xx).contains("id=score_")) {
-				scanner.skipToString("<span id=score_");
-				scanner.skipToString(">");
-				newPost.Points = Integer.parseInt(scanner.scanToString(" points"));
+				OMScanner pointsScanner = new OMScanner(htmlComponents.get(xx));
+				pointsScanner.skipToString("<span id=score_");
+				pointsScanner.skipToString(">");
+				String pointString = pointsScanner.scanToString(" point");
+				newPost.Points = Integer.parseInt(pointString);
 			}
 			
 			//Scan Author
@@ -78,18 +80,23 @@ public class HNPost {
 			}
 			
 			//Scan Number of Comments
-			if (htmlComponents.get(xx).contains("<a href=\"item?id=")) {
-				scanner.skipToString("<a href=\"item?id=");
-				newPost.PostId = scanner.scanToString("\">");
+			if (htmlComponents.get(xx).contains("  | <a href=\"item?id=")) {
+				OMScanner idScanner = new OMScanner(htmlComponents.get(xx));
+				idScanner.skipToString("  | <a href=\"item?id=");
+				newPost.PostId = idScanner.scanToString("\">");
 				
 				//Scan over the comment string to get number of comments (0 if discuss)
 				String commentString = scanner.scanToString("</a>");
 				if (commentString.equals("discuss")) {
 					newPost.CommentCount = 0;
 				} else {
-					OMScanner commentScanner = new OMScanner(commentString);
-					newPost.CommentCount = Integer.parseInt(commentScanner.scanToString(" "));
+					idScanner.scanToString(" ");
 				}
+			}
+			else if (htmlComponents.get(xx).contains("<a href=\"item?id=")) {
+				OMScanner idScanner = new OMScanner(htmlComponents.get(xx));
+				idScanner.skipToString("<a href=\"item?id=");
+				newPost.PostId = idScanner.scanToString("\">");
 			}
 			else {
 				scanner.skipToString("\">");
@@ -111,6 +118,10 @@ public class HNPost {
 				else {
 					newPost.Type = PostType.PostTypeDefault;
 				}
+			}
+			
+			if (htmlComponents.get(xx).toLowerCase().contains("show hn")) {
+				newPost.Type = PostType.PostTypeShowHN;
 			}
 		
 			if (xx == htmlComponents.size() - 1) {

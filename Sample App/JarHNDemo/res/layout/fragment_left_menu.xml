@@ -11,13 +11,74 @@
             android:layout_height="wrap_content">
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:visibility="gone"
+                style="@style/LeftMenuHeaderStyle"/>
+                
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:id="@+id/leftMenuFilterHeaderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="FILTER HOMEPAGE"
-                android:paddingLeft="5dp"
-                android:paddingTop="3dp"
-                android:paddingRight="3dp"
-                android:background="@color/LeftMenuSeparatorGrey"
-                android:textColor="@color/LeftMenuTextColor"
-                android:textStyle="italic"/>
+                style="@style/LeftMenuHeaderStyle"/>
+            <Button android:id="@+id/leftMenuTopFilterButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                style="@style/LeftMenuFilterButtonStyle"
+                android:text="Top"
+                android:layout_below="@id/leftMenuFilterHeaderTextView"/>
+            <Button android:id="@+id/leftMenuAskFilterButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                style="@style/LeftMenuFilterButtonStyle"
+                android:text="Ask"
+                android:layout_below="@id/leftMenuFilterHeaderTextView"
+                android:layout_toRightOf="@id/leftMenuTopFilterButton"/>
+            <Button android:id="@+id/leftMenuNewFilterButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                style="@style/LeftMenuFilterButtonStyle"
+                android:text="New"
+                android:layout_below="@id/leftMenuFilterHeaderTextView"
+                android:layout_toRightOf="@id/leftMenuAskFilterButton"/>
+            <Button android:id="@+id/leftMenuJobsFilterButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                style="@style/LeftMenuFilterButtonStyle"
+                android:text="Jobs"
+                android:layout_below="@id/leftMenuTopFilterButton"/>
+            <Button android:id="@+id/leftMenuBestFilterButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                style="@style/LeftMenuFilterButtonStyle"
+                android:text="Best"
+                android:layout_below="@id/leftMenuAskFilterButton"
+                android:layout_toRightOf="@id/leftMenuJobsFilterButton"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SETTINGS"
+                style="@style/LeftMenuHeaderStyle"/>
+                
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SHARE NEWS/YC"
+                style="@style/LeftMenuHeaderStyle"/>
+                
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CREDITS"
+                style="@style/LeftMenuHeaderStyle"/>
                 
         </RelativeLayout>
     </LinearLayout>

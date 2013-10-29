@@ -136,7 +136,7 @@ public class OMScanner {
 					}
 					else {
 						//Add and reset!
-						returnString = returnString + potentialMatchString;
+						returnString = returnString + potentialMatchString + newChar;
 						potentialMatchString = "";
 						continue;
 					}

@@ -9,7 +9,7 @@ public class SettingsManager {
 	//Singleton instance for settings
 	private static SettingsManager settingsManager;
 	
-	public PostFilterType currentPostFilterType;
+	public PostFilterType currentPostFilterType = PostFilterType.PostFilterTypeTop;
 	public Boolean usingReadability;
 	public Boolean usingMarkAsRead;
 	public Boolean usingNightMode;

@@ -1,33 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="left"
     tools:context=".MainActivity" >
-    
-    <ListView android:id="@+id/PostsListView"
+
+    <!-- The main content view -->
+
+    <ListView
+        android:id="@+id/PostsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0dp"
-        android:divider="@null"></ListView>
+        android:background="@color/BackgroundDarkGrey"
+        android:divider="@null"
+        android:dividerHeight="0dp" >
+    </ListView>
 
-    <com.slidinglayer.SlidingLayer
-        xmlns:slidingLayer="http://schemas.android.com/apk/res/com.slidinglayersample"
-        android:id="@+id/slidingLayer1"
-        android:layout_width="@dimen/layer_width"
-        android:layout_height="match_parent" >
+    <!-- The navigation drawer -->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#14ad8f" >
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#14ad8f" >
 
-            <fragment
+        <fragment
             android:id="@+id/leftMenuFragment"
             android:name="com.mattyork.jarhndemo.Fragments.LeftMenuFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </LinearLayout>
 
-        </RelativeLayout>
-    </com.slidinglayer.SlidingLayer>
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

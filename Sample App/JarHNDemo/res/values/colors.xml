@@ -9,4 +9,7 @@
     <color name="LeftMenuBackgroundDarkGrey">#1C1C1C</color>
     <color name="LeftMenuSeparatorGrey">#262626</color>
     <color name="LeftMenuTextColor">#EEEEEE</color>
+    <color name="PostCellDayBackground">#D9D9D9</color>
+    <color name="PostCellDayFooterBackgroud">#BFBFBF</color>
+    <color name="PostCellTextColor">#6B6B6B</color>
 </resources>

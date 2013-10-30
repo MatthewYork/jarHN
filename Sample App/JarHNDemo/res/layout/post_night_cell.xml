@@ -7,15 +7,16 @@
     <TextView
         android:id="@+id/postCellTitleTextView"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
+        android:padding="10dp"
         android:text="Post Title"
         android:textColor="#EEEEEE"
         android:textSize="14sp"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:minHeight="70dp" />
 
     <LinearLayout
         android:layout_below="@id/postCellTitleTextView"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/PostCellDayBackground"
+     >
+
+    <TextView
+        android:id="@+id/postCellTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Post Title"
+        android:background="@color/PostCellDayBackground"
+        android:textColor="@color/PostCellTextColor"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:minHeight="70dp" />
+
+    <LinearLayout
+        android:layout_below="@id/postCellTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        android:background="@color/PostCellDayFooterBackgroud"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" >
+
+        <TextView
+            android:id="@+id/postCellPointsTextView"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0 Points"
+            android:textSize="12sp"
+            android:textColor="@color/PostCellTextColor" />
+
+        <TextView
+            android:id="@+id/postCellDateCreatedTextView"
+            android:gravity="right"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Date Created"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="@color/PostCellTextColor" />
+    </LinearLayout>
+
+</RelativeLayout>

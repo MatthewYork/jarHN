@@ -183,6 +183,7 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 
 	public interface OnLeftMenuSettingChangedListener {
 		public void didSelectFilterPosts(PostFilterType type);
+		public void didSelectChangeTheme();
 	}
 
 	@Override
@@ -230,6 +231,12 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	}
 	
 	public void setThemeUI() {
+		//Callback to the activity to change the theme
+		if (mCallbackLeftMenuSettingChangedListener != null) {
+			mCallbackLeftMenuSettingChangedListener.didSelectChangeTheme();
+		}
+		
+		//Update left fragment UI
 		if (SettingsManager.getInstance().usingNightMode) {
 			mThemeImageView.setImageResource(R.drawable.nav_nightmode_on);
 			mThemeTextView.setText("Theme is Night");

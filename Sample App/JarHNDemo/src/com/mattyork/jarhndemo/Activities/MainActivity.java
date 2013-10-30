@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.OnRefreshListener;
+import android.R.integer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -89,7 +90,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				mPullToRefreshAttacher.setRefreshComplete();
 				
 				if (posts != null) {
-					postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, R.layout.post_cell, posts));
+					postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, getThemedCellLayoutId(), posts));
 				}
 				
 				 return;
@@ -180,7 +181,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		drawerLayout.closeDrawer(Gravity.START);
 		
 		//Clear posts
-		postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, R.layout.post_cell, new ArrayList<HNPost>()));
+		postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, getThemedCellLayoutId(), new ArrayList<HNPost>()));
 		
 		//Get new posts
 		SettingsManager.getInstance().currentPostFilterType = type;
@@ -202,5 +203,27 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		drawerToggle.syncState();
 	}
 	
+	private int getThemedCellLayoutId() {
+		if (SettingsManager.getInstance().usingNightMode) {
+			return R.layout.post_night_cell;
+		}
+		else {
+			return R.layout.post_day_cell;
+		}
+	}
 	
+	private void refreshTable(){
+		//Clear posts
+		if (postsListView != null) {
+			postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, getThemedCellLayoutId(), posts));
+		}
+	}
+
+	@Override
+	public void didSelectChangeTheme() {
+		// TODO Auto-generated method stub
+		refreshTable();
+	}
+	
+
 }

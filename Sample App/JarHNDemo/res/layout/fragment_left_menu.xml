@@ -59,11 +59,41 @@
         </RelativeLayout>
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView android:layout_width="match_parent"
+            <TextView android:id="@+id/leftMenuSettingsHeaderTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SETTINGS"
                 style="@style/LeftMenuHeaderStyle"/>
-                
+                <LinearLayout android:id="@+id/leftMenuSettingsReadabilityLinearLayout"
+                    android:layout_below="@id/leftMenuSettingsHeaderTextView"
+                android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    style="@style/LeftMenuSettingsLinearLayoutStyle">
+                    <ImageView android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:src="@drawable/nav_readability_off"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/leftMenuSettingsMarkAsReadLinearLayout"
+                    android:layout_below="@id/leftMenuSettingsReadabilityLinearLayout"
+                android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    style="@style/LeftMenuSettingsLinearLayoutStyle">
+                    <ImageView android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:src="@drawable/nav_markasread_off"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/leftMenuSettingsThemeLinearLayout"
+                    android:layout_below="@id/leftMenuSettingsMarkAsReadLinearLayout"
+                android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    style="@style/LeftMenuSettingsLinearLayoutStyle">
+                    <ImageView android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:src="@drawable/nav_nightmode_off"/>
+                </LinearLayout>
         </RelativeLayout>
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:text="Post Title"
         android:textColor="#EEEEEE"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:gravity="center_vertical" />
 
     <LinearLayout

@@ -10,9 +10,9 @@ public class SettingsManager {
 	private static SettingsManager settingsManager;
 	
 	public PostFilterType currentPostFilterType = PostFilterType.PostFilterTypeTop;
-	public Boolean usingReadability;
-	public Boolean usingMarkAsRead;
-	public Boolean usingNightMode;
+	public Boolean usingReadability = false;
+	public Boolean usingMarkAsRead = false;
+	public Boolean usingNightMode = false;
 	
 	protected SettingsManager() {
 		

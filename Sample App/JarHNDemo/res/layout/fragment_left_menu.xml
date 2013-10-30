@@ -4,112 +4,172 @@
     android:layout_height="match_parent"
     android:background="@color/LeftMenuBackgroundDarkGrey" >
 
-    <LinearLayout android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/LeftMenuHeaderStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="LOGIN"
-                android:visibility="gone"
-                style="@style/LeftMenuHeaderStyle"/>
-                
+                android:visibility="gone" />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:id="@+id/leftMenuFilterHeaderTextView"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/leftMenuFilterHeaderTextView"
+                style="@style/LeftMenuHeaderStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FILTER HOMEPAGE"
-                style="@style/LeftMenuHeaderStyle"/>
-            <Button android:id="@+id/leftMenuTopFilterButton"
+                android:text="FILTER HOMEPAGE" />
+
+            <Button
+                android:id="@+id/leftMenuTopFilterButton"
+                style="@style/LeftMenuFilterButtonStyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                style="@style/LeftMenuFilterButtonStyle"
-                android:text="Top"
-                android:layout_below="@id/leftMenuFilterHeaderTextView"/>
-            <Button android:id="@+id/leftMenuAskFilterButton"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                style="@style/LeftMenuFilterButtonStyle"
-                android:text="Ask"
                 android:layout_below="@id/leftMenuFilterHeaderTextView"
-                android:layout_toRightOf="@id/leftMenuTopFilterButton"/>
-            <Button android:id="@+id/leftMenuNewFilterButton"
+                android:text="Top" />
+
+            <Button
+                android:id="@+id/leftMenuAskFilterButton"
+                style="@style/LeftMenuFilterButtonStyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                style="@style/LeftMenuFilterButtonStyle"
-                android:text="New"
                 android:layout_below="@id/leftMenuFilterHeaderTextView"
-                android:layout_toRightOf="@id/leftMenuAskFilterButton"/>
-            <Button android:id="@+id/leftMenuJobsFilterButton"
+                android:layout_toRightOf="@id/leftMenuTopFilterButton"
+                android:text="Ask" />
+
+            <Button
+                android:id="@+id/leftMenuNewFilterButton"
+                style="@style/LeftMenuFilterButtonStyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/leftMenuFilterHeaderTextView"
+                android:layout_toRightOf="@id/leftMenuAskFilterButton"
+                android:text="New" />
+
+            <Button
+                android:id="@+id/leftMenuJobsFilterButton"
                 style="@style/LeftMenuFilterButtonStyle"
-                android:text="Jobs"
-                android:layout_below="@id/leftMenuTopFilterButton"/>
-            <Button android:id="@+id/leftMenuBestFilterButton"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/leftMenuTopFilterButton"
+                android:text="Jobs" />
+
+            <Button
+                android:id="@+id/leftMenuBestFilterButton"
                 style="@style/LeftMenuFilterButtonStyle"
-                android:text="Best"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/leftMenuAskFilterButton"
-                android:layout_toRightOf="@id/leftMenuJobsFilterButton"/>
+                android:layout_toRightOf="@id/leftMenuJobsFilterButton"
+                android:text="Best" />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:id="@+id/leftMenuSettingsHeaderTextView"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/leftMenuSettingsHeaderTextView"
+                style="@style/LeftMenuHeaderStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
-                style="@style/LeftMenuHeaderStyle"/>
-                <LinearLayout android:id="@+id/leftMenuSettingsReadabilityLinearLayout"
-                    android:layout_below="@id/leftMenuSettingsHeaderTextView"
+                android:text="SETTINGS" />
+
+            <LinearLayout
+                android:id="@+id/leftMenuSettingsReadabilityLinearLayout"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
                 android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    style="@style/LeftMenuSettingsLinearLayoutStyle">
-                    <ImageView android:layout_height="40dp"
-                        android:layout_width="40dp"
-                        android:src="@drawable/nav_readability_off"/>
-                </LinearLayout>
-                <LinearLayout android:id="@+id/leftMenuSettingsMarkAsReadLinearLayout"
-                    android:layout_below="@id/leftMenuSettingsReadabilityLinearLayout"
+                android:layout_height="40dp"
+                android:layout_below="@id/leftMenuSettingsHeaderTextView"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/leftMenuSettingsReadabilityImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/nav_readability_off" />
+                <TextView
+                android:id="@+id/leftMenuSettingsReadabilityTextView"
+                style="@style/LeftMenuSettingsTextViewStyle"
                 android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    style="@style/LeftMenuSettingsLinearLayoutStyle">
-                    <ImageView android:layout_height="40dp"
-                        android:layout_width="40dp"
-                        android:src="@drawable/nav_markasread_off"/>
-                </LinearLayout>
-                <LinearLayout android:id="@+id/leftMenuSettingsThemeLinearLayout"
-                    android:layout_below="@id/leftMenuSettingsMarkAsReadLinearLayout"
+                android:layout_height="match_parent"
+                android:text="Readability is OFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/leftMenuSettingsMarkAsReadLinearLayout"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
                 android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    style="@style/LeftMenuSettingsLinearLayoutStyle">
-                    <ImageView android:layout_height="40dp"
-                        android:layout_width="40dp"
-                        android:src="@drawable/nav_nightmode_off"/>
-                </LinearLayout>
+                android:layout_height="40dp"
+                android:layout_below="@id/leftMenuSettingsReadabilityLinearLayout"
+                android:orientation="horizontal" >
+
+                <ImageView android:id="@+id/leftMenuSettingsMarkAsReadImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/nav_markasread_off" />
+                <TextView
+                android:id="@+id/leftMenuSettingsMarkAsReadTextView"
+                style="@style/LeftMenuSettingsTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Mark as Read is OFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/leftMenuSettingsThemeLinearLayout"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/leftMenuSettingsMarkAsReadLinearLayout"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/leftMenuSettingsThemeImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/nav_nightmode_off" />
+                <TextView
+                android:id="@+id/leftMenuSettingsThemeTextView"
+                style="@style/LeftMenuSettingsTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Theme is DAY" />
+            </LinearLayout>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:layout_width="match_parent"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/LeftMenuHeaderStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SHARE NEWS/YC"
-                style="@style/LeftMenuHeaderStyle"/>
-                
+                android:text="SHARE NEWS/YC" />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:layout_width="match_parent"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/LeftMenuHeaderStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CREDITS"
-                style="@style/LeftMenuHeaderStyle"/>
-                
+                android:text="CREDITS" />
         </RelativeLayout>
     </LinearLayout>
 

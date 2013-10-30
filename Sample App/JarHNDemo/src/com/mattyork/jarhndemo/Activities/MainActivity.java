@@ -41,6 +41,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		//Load default settings
+		SettingsManager.getInstance().loadSettingsFromSharedPreferences(this);
+		
 		setContentView(R.layout.activity_main);
 		
 		//Setup left menu
@@ -50,9 +53,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setTitle(R.string.content_top);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		//Load default settings
-		SettingsManager.getInstance().loadSettingsFromSharedPreferences();
 		
 		//Setup postsTable
 		setupPostsListView();
@@ -111,7 +111,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	
 	public void setupLeftMenu() {
 		leftMenuFragment = (LeftMenuFragment)getSupportFragmentManager().findFragmentById(R.id.leftMenuFragment);
-		//leftMenuInterface = new left
 		
 		drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
 		drawerToggle = createDrawerToggle();

@@ -2,10 +2,6 @@ package com.mattyork.jarhndemo.Fragments;
 
 import java.util.ArrayList;
 
-import com.mattyork.jarhn.HNWebService.PostFilterType;
-import com.mattyork.jarhndemo.R;
-import com.mattyork.jarhndemo.Helpers.SettingsManager;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.mattyork.jarhn.HNWebService.PostFilterType;
+import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
 public class LeftMenuFragment extends Fragment implements OnClickListener {
 
@@ -91,8 +91,6 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		mBestFilterButton = (Button) view
 				.findViewById(R.id.leftMenuBestFilterButton);
 
-		// Set onclick listeners
-
 		// Add buttons to list
 		buttonsArrayList.add(mTopFilterButton);
 		buttonsArrayList.add(mAskFilterButton);
@@ -133,6 +131,9 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		mReadabilityLinearLayout.setOnClickListener(this);
 		mMarkAsReadLinearLayout.setOnClickListener(this);
 		mThemeLinearLayout.setOnClickListener(this);
+		
+		//Setup UI
+		setInitialSettingsUI();
 	}
 
 	private void setButtonSelected(View selectedButton) {
@@ -188,32 +189,53 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v.getId() == mReadabilityLinearLayout.getId()) {
-			SettingsManager.getInstance().usingReadability = !SettingsManager
-					.getInstance().usingReadability;
-
-			if (SettingsManager.getInstance().usingReadability) {
-				mReadabilityImageView.setImageResource(R.drawable.nav_readability_on);
-			} else {
-				mReadabilityImageView.setImageResource(R.drawable.nav_readability_off);
-			}
+			SettingsManager.getInstance().setusingReadability(!SettingsManager
+					.getInstance().usingReadability);
+			setReadabilityUI();
 		} else if (v.getId() == mMarkAsReadLinearLayout.getId()) {
-			SettingsManager.getInstance().usingMarkAsRead = !SettingsManager
-					.getInstance().usingMarkAsRead;
-
-			if (SettingsManager.getInstance().usingMarkAsRead) {
-				mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_on);
-			} else {
-				mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_off);
-			}
+			SettingsManager.getInstance().setUsingMarkAsRead(!SettingsManager
+					.getInstance().usingMarkAsRead);
+			setMarkAsReadUI();
 		} else if (v.getId() == mThemeLinearLayout.getId()) {
-			SettingsManager.getInstance().usingNightMode = !SettingsManager
-					.getInstance().usingNightMode;
-
-			if (SettingsManager.getInstance().usingNightMode) {
-				mThemeImageView.setImageResource(R.drawable.nav_nightmode_on);
-			} else {
-				mThemeImageView.setImageResource(R.drawable.nav_nightmode_off);
-			}
+			SettingsManager.getInstance().setUsingNightMode(!SettingsManager
+					.getInstance().usingNightMode);
+			setThemeUI();
+		}
+	}
+	
+	public void setInitialSettingsUI() {
+		setReadabilityUI();
+		setMarkAsReadUI();
+		setThemeUI();
+	}
+	
+	public void setReadabilityUI() {
+		if (SettingsManager.getInstance().usingReadability) {
+			mReadabilityImageView.setImageResource(R.drawable.nav_readability_on);
+			mReadabilityTextView.setText("Readability is ON");
+		} else {
+			mReadabilityImageView.setImageResource(R.drawable.nav_readability_off);
+			mReadabilityTextView.setText("Readability is OFF");
+		}
+	}
+	
+	public void setMarkAsReadUI() {
+		if (SettingsManager.getInstance().usingMarkAsRead) {
+			mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_on);
+			mMarkAsReadTextView.setText("Mark as Read is ON");
+		} else {
+			mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_off);
+			mMarkAsReadTextView.setText("Mark as Read is OFF");
+		}
+	}
+	
+	public void setThemeUI() {
+		if (SettingsManager.getInstance().usingNightMode) {
+			mThemeImageView.setImageResource(R.drawable.nav_nightmode_on);
+			mThemeTextView.setText("Theme is Night");
+		} else {
+			mThemeImageView.setImageResource(R.drawable.nav_nightmode_off);
+			mThemeTextView.setText("Theme is Day");
 		}
 	}
 }

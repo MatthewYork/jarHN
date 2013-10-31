@@ -41,6 +41,18 @@ public class OMScanner {
 			_index = 0;
 		}
 		
+		public String getScanString() {
+			return new String(_baseString);
+		}
+		
+		public int getScanIndex(){
+			return _index;
+		}
+		
+		public void setScanIndex(int index){
+			_index = index;
+		}
+		
 		public char readCharacter() {
 			char character = _baseString[_index];
 			_index++;

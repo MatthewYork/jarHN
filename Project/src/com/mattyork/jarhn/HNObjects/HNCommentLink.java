@@ -21,6 +21,10 @@ public class HNCommentLink {
 	 */
 	public static ArrayList<HNCommentLink> linksFromCommentText(
 			String commentString) {
-		return new ArrayList<HNCommentLink>();
+		ArrayList<HNCommentLink> linkArray = new ArrayList<HNCommentLink>();
+		
+		
+		
+		return linkArray;
 	}
 }

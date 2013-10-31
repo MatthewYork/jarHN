@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Helpers.SettingsManager;
@@ -31,8 +32,9 @@ public class LinkActivity extends FragmentActivity {
 		
 		//Setup link web view
 		linkWebView = (WebView)findViewById(R.id.linkWebView);
-		//linkWebView.getSettings().setJavaScriptEnabled(true);
+		linkWebView.getSettings().setJavaScriptEnabled(true);
 		linkWebView.loadUrl(linkUrlString);
+		linkWebView.setWebViewClient(new WebViewClient());
 		
 	}
 

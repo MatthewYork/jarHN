@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mattyork.jarhn.HNObjects.HNPost;
 import com.mattyork.jarhn.HNObjects.HNPost.PostType;
 import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Helpers.SettingsManager;
 import com.mattyork.jarhndemo.R.id;
 
 public class PostsCellAdapter extends ArrayAdapter<HNPost> {
@@ -21,9 +22,10 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 	private Context context;
 	LayoutInflater inflater;
 
-	TextView postTitleTextView;
-	TextView pointsTextView;
-	TextView dateCreatedTextView;
+	TextView mPostTitleTextView;
+	TextView mPointsTextView;
+	TextView mDateCreatedTextView;
+	TextView mCommentCountTextView;
 
 	public PostsCellAdapter(Context context, int resource,
 			ArrayList<HNPost> posts) {
@@ -68,26 +70,36 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 		}
 
 		// Set title
-		postTitleTextView = (TextView) convertView
+		mPostTitleTextView = (TextView) convertView
 				.findViewById(R.id.postCellTitleTextView);
-		postTitleTextView.setText(posts.get(position).Title);
+		mPostTitleTextView.setText(posts.get(position).Title);
 
 		// Set points
-		pointsTextView = (TextView) convertView
+		mPointsTextView = (TextView) convertView
 				.findViewById(R.id.postCellPointsTextView);
-		pointsTextView.setText(posts.get(position).Points + " Points");
+		mPointsTextView.setText(posts.get(position).Points + " Points");
 
 		// Set date created
-		dateCreatedTextView = (TextView) convertView
+		mDateCreatedTextView = (TextView) convertView
 				.findViewById(R.id.postCellDateCreatedTextView);
-		dateCreatedTextView.setText(posts.get(position).TimeCreatedString);
+		mDateCreatedTextView.setText(posts.get(position).TimeCreatedString);
 
+		//Set comment count
+		mCommentCountTextView = (TextView)convertView.findViewById(R.id.postCellCommentCountTextView);
+		mCommentCountTextView.setText(""+posts.get(position).CommentCount);
+		
+		//Set background color
 		if (posts.get(position).Type == PostType.PostTypeShowHN) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrange));
 		} else if (posts.get(position).Type == PostType.PostTypeJobs) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
 		} else if (posts.get(position).Type == PostType.PostTypeDefault) {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
+			if (SettingsManager.getInstance().usingNightMode) {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
+			}
+			else {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayBackground));
+			}
 		}
 
 		return convertView;

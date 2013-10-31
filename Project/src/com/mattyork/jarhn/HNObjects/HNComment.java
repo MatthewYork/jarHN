@@ -18,7 +18,11 @@ public class HNComment {
 	ArrayList<Object> Links;
 	
 	public static ArrayList<HNComment> parsedCommentsFromHTML(String htmlString, HNPost post) {
+		ArrayList<HNComment> comments = new ArrayList<HNComment>();
+		ArrayList<String> htmlComponents = new ArrayList<String>();
 		
-		return new ArrayList<HNComment>();
+		
+		
+		return comments;
 	}
 }

@@ -47,6 +47,7 @@ public class HNPost {
 			//Scan Url
 			scanner.skipToString("<a href=\"");
 			newPost.UrlString = scanner.scanToString("\">");
+			newPost.UrlString = newPost.UrlString.replace("\" rel=\"nofollow", "");
 			
 			//Scan Title
 			newPost.Title = scanner.scanToString("</a>");
@@ -87,10 +88,12 @@ public class HNPost {
 				
 				//Scan over the comment string to get number of comments (0 if discuss)
 				String commentString = scanner.scanToString("</a>");
-				if (commentString.equals("discuss")) {
+				if (commentString.contains("discuss")) {
 					newPost.CommentCount = 0;
 				} else {
-					idScanner.scanToString(" ");
+					OMScanner commentScanner = new OMScanner(commentString);
+					commentScanner.skipToString(">");
+					newPost.CommentCount = Integer.parseInt(idScanner.scanToString(" "));
 				}
 			}
 			else if (htmlComponents.get(xx).contains("<a href=\"item?id=")) {

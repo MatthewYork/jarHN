@@ -9,6 +9,7 @@
 
         <!-- API 14 theme customizations can go here. -->
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Example</item>
+        <item name="android:actionBarTabStyle">@style/YCActionBarTabStyle</item>
     </style>
 
     <style name="ActionBar.Solid.Example" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
@@ -20,4 +21,11 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- style for the tabs -->
+    <style name="YCActionBarTabStyle"  parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@color/HNOrange</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+        <item name="android:tabStripEnabled">true</item>
+    </style>
 </resources>

@@ -164,7 +164,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		Intent i = new Intent(this, LinkActivity.class);
+		Intent i = new Intent(this, LinkCommentsActivity.class);
 		i.putExtra("url", posts.get(position).UrlString);
 		this.startActivity(i);
 	}

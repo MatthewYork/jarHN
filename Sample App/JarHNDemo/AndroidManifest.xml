@@ -24,9 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CommentsActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.LinkActivity"
+        <activity android:name=".Activities.LinkCommentsActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

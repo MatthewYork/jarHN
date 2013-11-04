@@ -42,6 +42,11 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	private TextView mMarkAsReadTextView;
 	private TextView mThemeTextView;
 
+	// Share Linear Layout
+	private ImageView mFacebookImageView;
+	private ImageView mTwitterImageView;
+	private ImageView mEmailImageView;
+
 	OnLeftMenuSettingChangedListener mCallbackLeftMenuSettingChangedListener;
 
 	@Override
@@ -70,6 +75,7 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 
 		setupFilterButtons(view);
 		setupSettings(view);
+		setupShareButtons(view);
 		return view;
 	}
 
@@ -131,9 +137,24 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		mReadabilityLinearLayout.setOnClickListener(this);
 		mMarkAsReadLinearLayout.setOnClickListener(this);
 		mThemeLinearLayout.setOnClickListener(this);
-		
-		//Setup UI
+
+		// Setup UI
 		setInitialSettingsUI();
+	}
+
+	private void setupShareButtons(View view) {
+		// Setup ImageViews
+		mFacebookImageView = (ImageView) view
+				.findViewById(R.id.leftMenuFacebookImageView);
+		mTwitterImageView = (ImageView) view
+				.findViewById(R.id.leftMenuTwitterImageView);
+		mEmailImageView = (ImageView) view
+				.findViewById(R.id.leftMenuEmailImageView);
+
+		// Add on-click listeners
+		mFacebookImageView.setOnClickListener(this);
+		mTwitterImageView.setOnClickListener(this);
+		mEmailImageView.setOnClickListener(this);
 	}
 
 	private void setButtonSelected(View selectedButton) {
@@ -183,6 +204,7 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 
 	public interface OnLeftMenuSettingChangedListener {
 		public void didSelectFilterPosts(PostFilterType type);
+
 		public void didSelectChangeTheme();
 	}
 
@@ -190,53 +212,66 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v.getId() == mReadabilityLinearLayout.getId()) {
-			SettingsManager.getInstance().setusingReadability(!SettingsManager
-					.getInstance().usingReadability);
+			SettingsManager.getInstance().setusingReadability(
+					!SettingsManager.getInstance().usingReadability);
 			setReadabilityUI();
 		} else if (v.getId() == mMarkAsReadLinearLayout.getId()) {
-			SettingsManager.getInstance().setUsingMarkAsRead(!SettingsManager
-					.getInstance().usingMarkAsRead);
+			SettingsManager.getInstance().setUsingMarkAsRead(
+					!SettingsManager.getInstance().usingMarkAsRead);
 			setMarkAsReadUI();
 		} else if (v.getId() == mThemeLinearLayout.getId()) {
-			SettingsManager.getInstance().setUsingNightMode(!SettingsManager
-					.getInstance().usingNightMode);
+			SettingsManager.getInstance().setUsingNightMode(
+					!SettingsManager.getInstance().usingNightMode);
 			setThemeUI();
+		} else if (v.getId() == mFacebookImageView.getId()) {
+
+		} else if (v.getId() == mTwitterImageView.getId()) {
+
+		} else if (v.getId() == mEmailImageView.getId()) {
+
 		}
 	}
-	
+
 	public void setInitialSettingsUI() {
 		setReadabilityUI();
 		setMarkAsReadUI();
 		setThemeUI();
 	}
+
+	//================================================================================
+    // Settings Methods
+    //================================================================================
 	
-	public void setReadabilityUI() {
+	private void setReadabilityUI() {
 		if (SettingsManager.getInstance().usingReadability) {
-			mReadabilityImageView.setImageResource(R.drawable.nav_readability_on);
+			mReadabilityImageView
+					.setImageResource(R.drawable.nav_readability_on);
 			mReadabilityTextView.setText("Readability is ON");
 		} else {
-			mReadabilityImageView.setImageResource(R.drawable.nav_readability_off);
+			mReadabilityImageView
+					.setImageResource(R.drawable.nav_readability_off);
 			mReadabilityTextView.setText("Readability is OFF");
 		}
 	}
-	
-	public void setMarkAsReadUI() {
+
+	private void setMarkAsReadUI() {
 		if (SettingsManager.getInstance().usingMarkAsRead) {
 			mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_on);
 			mMarkAsReadTextView.setText("Mark as Read is ON");
 		} else {
-			mMarkAsReadImageView.setImageResource(R.drawable.nav_markasread_off);
+			mMarkAsReadImageView
+					.setImageResource(R.drawable.nav_markasread_off);
 			mMarkAsReadTextView.setText("Mark as Read is OFF");
 		}
 	}
-	
-	public void setThemeUI() {
-		//Callback to the activity to change the theme
+
+	private void setThemeUI() {
+		// Callback to the activity to change the theme
 		if (mCallbackLeftMenuSettingChangedListener != null) {
 			mCallbackLeftMenuSettingChangedListener.didSelectChangeTheme();
 		}
-		
-		//Update left fragment UI
+
+		// Update left fragment UI
 		if (SettingsManager.getInstance().usingNightMode) {
 			mThemeImageView.setImageResource(R.drawable.nav_nightmode_on);
 			mThemeTextView.setText("Theme is Night");
@@ -244,5 +279,21 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 			mThemeImageView.setImageResource(R.drawable.nav_nightmode_off);
 			mThemeTextView.setText("Theme is Day");
 		}
+	}
+	
+	//================================================================================
+    // Share Methods
+    //================================================================================
+
+	private void goFacebook() {
+
+	}
+
+	private void goTwitter() {
+
+	}
+
+	private void goEmail() {
+
 	}
 }

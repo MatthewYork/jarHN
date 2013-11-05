@@ -1,5 +1,6 @@
 package com.mattyork.jarhndemo.Activities;
 
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 import android.R.integer;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -34,13 +35,18 @@ public class LinkCommentsActivity extends FragmentActivity implements
 	private View mLinkLineView, mCommentLineView;
 	private TextView mLinkTextView, mCommentTextView;
 	private FrameLayout mLinkFrameLayout, mCommentsFrameLayout;
-
+	PullToRefreshAttacher mPullToRefreshAttacher;
+	
 	ViewPager mLinkCommentsViewPager;
 	LinkCommentPagerAdapter mPageAdapter;
 
 	public static String selectedLinkUrl = "";
 
 	private ShareActionProvider mShareActionProvider;
+	
+	public PullToRefreshAttacher getmPullToRefreshAttacher() {
+		return mPullToRefreshAttacher;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,9 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		// Setup view pager and tabs
 		setupViewPager();
 		setupTabs();
+		
+		// Create a PullToRefreshAttacher instance
+	    mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
 		// Get link from extra
 		selectedLinkUrlString = this.getIntent().getStringExtra("url");
@@ -62,6 +71,10 @@ public class LinkCommentsActivity extends FragmentActivity implements
 			selectedLinkUrlString = "http://www.readability.com/m?url="
 					+ selectedLinkUrlString;
 		}
+		
+		//Get/set starting tab
+		int startingTabIndex = this.getIntent().getIntExtra("selectedContent", 0);
+		mLinkCommentsViewPager.setCurrentItem(startingTabIndex);
 	}
 
 	private void setupViewPager() {

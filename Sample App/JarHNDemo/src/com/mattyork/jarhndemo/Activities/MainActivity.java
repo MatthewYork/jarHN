@@ -14,6 +14,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -89,7 +91,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				//Reset pull to refresh
 				mPullToRefreshAttacher.setRefreshComplete();
 				
-				if (posts != null) {
+				if (posts != null && this != null) {
 					postsListView.setAdapter(new PostsCellAdapter(MainActivity.this, getThemedCellLayoutId(), posts));
 				}
 				
@@ -170,6 +172,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		//Build intent and start activity
 		Intent i = new Intent(this, LinkCommentsActivity.class);
 		i.putExtra("url", posts.get(position).UrlString);
+		i.putExtra("selectedContent", 0);// MAKE THIS REACTIVE TO ASK, JOBS!!!
 		this.startActivity(i);
 	}
 	

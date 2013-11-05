@@ -3,17 +3,21 @@ package com.mattyork.jarhndemo.Adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattyork.jarhn.HNObjects.HNPost;
 import com.mattyork.jarhn.HNObjects.HNPost.PostType;
 import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Activities.LinkCommentsActivity;
+import com.mattyork.jarhndemo.Activities.MainActivity;
 import com.mattyork.jarhndemo.Helpers.SettingsManager;
-import com.mattyork.jarhndemo.R.id;
 
 public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 
@@ -26,6 +30,7 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 	TextView mPointsTextView;
 	TextView mDateCreatedTextView;
 	TextView mCommentCountTextView;
+	ImageView mCommentImageView;
 
 	public PostsCellAdapter(Context context, int resource,
 			ArrayList<HNPost> posts) {
@@ -60,7 +65,7 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (convertView == null) { // If the View is not cached
 			// Inflates the Common View from XML file
 			convertView = this.inflater
@@ -88,6 +93,23 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 		mCommentCountTextView = (TextView)convertView.findViewById(R.id.postCellCommentCountTextView);
 		mCommentCountTextView.setText(""+posts.get(position).CommentCount);
 		
+		//Set frame layout
+		mCommentImageView = (ImageView)convertView.findViewById(R.id.postCellCommentBubbleImageView);
+		mCommentImageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				MainActivity.selectedPost = posts.get(position);
+				
+				//Build intent and start activity
+				Intent i = new Intent(context, LinkCommentsActivity.class);
+				i.putExtra("url", posts.get(position).UrlString);
+				i.putExtra("selectedContent", 1);
+				context.startActivity(i);
+			}
+		});
+		
 		//Set background color
 		if (posts.get(position).Type == PostType.PostTypeShowHN) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrange));
@@ -106,4 +128,5 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 
 		return convertView;
 	}
+
 }

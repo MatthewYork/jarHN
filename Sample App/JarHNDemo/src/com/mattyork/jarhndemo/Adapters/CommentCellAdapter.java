@@ -90,6 +90,7 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		//Set Text
 		mTextTextView = (TextView)convertView.findViewById(R.id.CommentCellTextTextView);
 		mTextTextView.setText(comments.get(position).Text);
+		mTextTextView.setLinkTextColor(context.getResources().getColor(R.color.HNOrange));
 		Linkify.addLinks(mTextTextView, Linkify.WEB_URLS);
 		
 		//Set Level Padding

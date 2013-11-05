@@ -24,18 +24,19 @@
             android:textSize="14sp" />
 
         <FrameLayout
-            android:id="@+id/postCellCommentBubbleImageView"
+            android:id="@+id/postCellCommentBubbleFrameLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2" >
 
             <ImageView
+                android:id="@+id/postCellCommentBubbleImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:alpha="0.6"
                 android:padding="15dp"
-                android:src="@drawable/comment_bubble" />
+                android:src="@drawable/comment_bubble_dark" />
 
             <TextView
                 android:id="@+id/postCellCommentCountTextView"

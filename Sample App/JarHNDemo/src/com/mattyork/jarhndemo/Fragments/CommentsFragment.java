@@ -2,6 +2,17 @@ package com.mattyork.jarhndemo.Fragments;
 
 import java.util.ArrayList;
 
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.OnRefreshListener;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
 import com.mattyork.jarhn.AsyncTasks.LoadCommentsFromPostAsyncTask;
 import com.mattyork.jarhn.HNObjects.HNComment;
 import com.mattyork.jarhndemo.R;
@@ -10,25 +21,17 @@ import com.mattyork.jarhndemo.Activities.MainActivity;
 import com.mattyork.jarhndemo.Adapters.CommentCellAdapter;
 import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
-
-public class CommentsFragment extends Fragment implements OnItemClickListener{
+public class CommentsFragment extends Fragment implements OnItemClickListener, OnRefreshListener{
 	
 	ArrayList<HNComment> comments = new ArrayList<HNComment>();
 	ListView mCommentsListView;
+	PullToRefreshAttacher mPullToRefreshAttacher;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		mPullToRefreshAttacher = ((LinkCommentsActivity)getActivity()).getmPullToRefreshAttacher();
 	}
 
 	@Override
@@ -37,9 +40,7 @@ public class CommentsFragment extends Fragment implements OnItemClickListener{
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_comments, null);
 		
-		//Setup listview
-		mCommentsListView = (ListView)view.findViewById(R.id.CommentsListView);
-		mCommentsListView.setOnItemClickListener(this);
+		setupListView(view);
 		
 		return view;
 	}
@@ -53,15 +54,37 @@ public class CommentsFragment extends Fragment implements OnItemClickListener{
 		getComments();
 	}
 	
+	private void setupListView(View view) {
+		//Setup listview
+				mCommentsListView = (ListView)view.findViewById(R.id.CommentsListView);
+				mCommentsListView.setOnItemClickListener(this);
+
+			    // Add the Refreshable View and provide the refresh listener
+			    mPullToRefreshAttacher.addRefreshableView(mCommentsListView, this);
+	}
+	
 	private void getComments() {
 		LoadCommentsFromPostAsyncTask task = new LoadCommentsFromPostAsyncTask(MainActivity.selectedPost){
+
+			
+			
+			@Override
+			protected void onPreExecute() {
+				// TODO Auto-generated method stub
+				super.onPreExecute();
+				
+				mPullToRefreshAttacher.setRefreshing(true);
+			}
 
 			@Override
 			protected void onPostExecute(ArrayList<HNComment> result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
 				
-				if(result != null){
+				//Reset pull to refresh
+				mPullToRefreshAttacher.setRefreshComplete();
+				
+				if(result != null && getActivity() != null){
 					mCommentsListView.setAdapter(new CommentCellAdapter(getActivity(), getThemedCellLayoutId(), result));
 				}
 			}
@@ -83,5 +106,11 @@ public class CommentsFragment extends Fragment implements OnItemClickListener{
 		else {
 			return R.layout.comment_day_cell;
 		}
+	}
+
+	@Override
+	public void onRefreshStarted(View view) {
+		// TODO Auto-generated method stub
+		getComments();
 	}
 }

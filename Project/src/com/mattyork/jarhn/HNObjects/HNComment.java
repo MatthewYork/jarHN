@@ -13,15 +13,15 @@ public class HNComment {
 		CommentTypeDefault, CommentTypeAskHN, CommentTypeJobs
 	}
 
-	CommentType Type;
-	String Text;
-	String Username;
-	String CommentId;
-	String ParentID;
-	String TimeCreatedString;
-	String ReplyURLString;
-	int Level;
-	ArrayList<HNCommentLink> Links;
+	public CommentType Type;
+	public String Text;
+	public String Username;
+	public String CommentId;
+	public String ParentID;
+	public String TimeCreatedString;
+	public String ReplyURLString;
+	public int Level;
+	public ArrayList<HNCommentLink> Links;
 	
 	public static ArrayList<HNComment> parsedCommentsFromHTML(String htmlString, HNPost post) {
 		ArrayList<HNComment> comments = new ArrayList<HNComment>();
@@ -82,6 +82,7 @@ public class HNComment {
 	        //Get Comment Level
 	        scanner.skipToString("height=1 width=");
 	        newComment.Level = Integer.parseInt(scanner.scanToString(">"))/40;
+	        scanner.setScanIndex(0);
 	        
 	        //Get Username
 	        scanner.skipToString("<a href=\"user?id=");
@@ -95,21 +96,25 @@ public class HNComment {
 	        
 	        //Get Date/Time
 	        scanner.skipToString("</a> ");
-	        newComment.TimeCreatedString = scanner.scanToString(" |");
+	        newComment.TimeCreatedString = scanner.scanToString("|");
+	        scanner.setScanIndex(0);
 	        
 	        //Get Comment Text
 	        scanner.skipToString("<font color=");
 	        scanner.skipToString(">");
 	        text =  scanner.scanToString("</font>");
 	        newComment.Text = HNUtilities.stringByReplacingHTMLEntitiesInText(text);
+	        scanner.setScanIndex(0);
 	        
 	        //Get CommentId
 	        scanner.skipToString("reply?id=");
 	        newComment.CommentId = scanner.scanToString("&");
+	        scanner.setScanIndex(0);
 	        
 	        //Get Reply URL Addition
 	        scanner.skipToString("<font size=1><u><a href=\"");
 	        newComment.ReplyURLString = scanner.scanToString("\">reply");
+	        scanner.setScanIndex(0);
 	        
 	        //Get Links
 	        newComment.Links = HNCommentLink.linksFromCommentText(newComment.Text);

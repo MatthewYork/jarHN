@@ -12,4 +12,5 @@
     <color name="PostCellDayBackground">#D9D9D9</color>
     <color name="PostCellDayFooterBackgroud">#BFBFBF</color>
     <color name="PostCellTextColor">#6B6B6B</color>
+    <color name="CommentCellNightHeaderTextColor">#B0B0B0</color>
 </resources>

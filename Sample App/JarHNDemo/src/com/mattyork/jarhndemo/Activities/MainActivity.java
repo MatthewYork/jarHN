@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	ArrayList<HNPost> posts = new ArrayList<HNPost>();
 	LeftMenuFragment leftMenuFragment;
 	PullToRefreshAttacher mPullToRefreshAttacher;
-	
+	public static HNPost selectedPost;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +164,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
+		//Set selected post
+		selectedPost = posts.get(position);
+		
+		//Build intent and start activity
 		Intent i = new Intent(this, LinkCommentsActivity.class);
 		i.putExtra("url", posts.get(position).UrlString);
 		this.startActivity(i);

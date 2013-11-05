@@ -7,6 +7,7 @@ import com.mattyork.jarhn.HNObjects.HNComment;
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Activities.LinkCommentsActivity;
 import com.mattyork.jarhndemo.Activities.MainActivity;
+import com.mattyork.jarhndemo.Adapters.CommentCellAdapter;
 import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
 import android.content.Intent;

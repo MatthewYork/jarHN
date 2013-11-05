@@ -91,8 +91,10 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 		//Set background color
 		if (posts.get(position).Type == PostType.PostTypeShowHN) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrange));
+			mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
 		} else if (posts.get(position).Type == PostType.PostTypeJobs) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
+			mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
 		} else if (posts.get(position).Type == PostType.PostTypeDefault) {
 			if (SettingsManager.getInstance().usingNightMode) {
 				convertView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));

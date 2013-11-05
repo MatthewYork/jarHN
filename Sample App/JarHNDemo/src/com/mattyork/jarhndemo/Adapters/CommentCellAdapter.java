@@ -1,8 +1,9 @@
-package com.mattyork.jarhndemo.Fragments;
+package com.mattyork.jarhndemo.Adapters;
 
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,8 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 	RelativeLayout mHeaderRelativeLayout;
 	TextView mUsernameTextView;
 	TextView mDateTextView;
-	//final TextView mTextTextView;
+	TextView mTextTextView;
+	RelativeLayout mTextRelativeLayout;
 	
 	public CommentCellAdapter(Context context, int resource,
 			ArrayList<HNComment> comments) {
@@ -71,9 +73,10 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 
 		//Set header
 		mHeaderRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellHeaderRelativeLayout);
-		LayoutParams headerLayoutParams = new LayoutParams(mHeaderRelativeLayout.getLayoutParams());
-		headerLayoutParams.setMargins((comments.get(position).Level)*15, 0, 0, 0);
-		mHeaderRelativeLayout.setLayoutParams(headerLayoutParams);
+		
+		//LayoutParams headerLayoutParams = new LayoutParams(mHeaderRelativeLayout.getLayoutParams());
+		//headerLayoutParams.setMargins((comments.get(position).Level)*15, 0, 0, 0);
+		//mHeaderRelativeLayout.setLayoutParams(headerLayoutParams);
 		
 		// Set username
 		mUsernameTextView = (TextView) convertView
@@ -85,12 +88,15 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		mDateTextView.setText(comments.get(position).TimeCreatedString);
 
 		//Set Text
-		final TextView mTextTextView = (TextView)convertView.findViewById(R.id.CommentCellTextTextView);
+		mTextTextView = (TextView)convertView.findViewById(R.id.CommentCellTextTextView);
 		mTextTextView.setText(comments.get(position).Text);
-		mTextTextView.setPadding(comments.get(position).Level*15 + 15, 15, 15, 15);
+		Linkify.addLinks(mTextTextView, Linkify.WEB_URLS);
 		
 		//Set Level Padding
 		mMasterRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellMasterRelativeLayout);
+		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*15 + 15, 0, 0, 0);
+		
+		//Set textRelativelayout
 		
 		/*
 		//Draw lines

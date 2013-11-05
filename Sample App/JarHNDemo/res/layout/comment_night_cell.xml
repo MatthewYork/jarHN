@@ -35,14 +35,24 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/CommentCellTextTextView"
+    <RelativeLayout
+        android:id="@+id/CommentCellTextRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/CommentCellHeaderRelativeLayout"
-        android:padding="10dp"
-        android:text="Comment Text"
-        android:textColor="@color/CommentCellNightHeaderTextColor"
-        android:textSize="14sp" />
+        android:background="@color/PostCellLightGrey"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp" >
+
+        <TextView
+            android:id="@+id/CommentCellTextTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/BackgroundDarkGrey"
+            android:padding="10dp"
+            android:text="Comment Text"
+            android:textColor="@color/CommentCellNightHeaderTextColor"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

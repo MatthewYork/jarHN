@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.RelativeLayout;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -52,6 +53,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		//Setup left menu
 		setupLeftMenu();
 		
+		//Customize UI
+		buildUI();
+		
 		//Customize action bar
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setTitle(R.string.content_top);
@@ -63,6 +67,15 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		//Fetch top posts
 		getPostsWithFilterType(PostFilterType.PostFilterTypeTop);
 		
+	}
+	
+	private void buildUI() {
+		if (SettingsManager.getInstance().usingNightMode) {
+			drawerLayout.setBackgroundColor(getResources().getColor(R.color.BackgroundDarkGrey));
+		}
+		else {
+			drawerLayout.setBackgroundColor(getResources().getColor(R.color.PostCellDayBackground));
+		}
 	}
 
 	@Override

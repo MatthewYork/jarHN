@@ -2,6 +2,7 @@ package com.mattyork.jarhndemo.Adapters;
 
 import java.util.ArrayList;
 
+import android.R.integer;
 import android.content.Context;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 	TextView mDateTextView;
 	TextView mTextTextView;
 	RelativeLayout mTextRelativeLayout;
+	int densityPixelOffset;
+	private static final int pixelOffset = 10;
 	
 	public CommentCellAdapter(Context context, int resource,
 			ArrayList<HNComment> comments) {
@@ -39,6 +42,8 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		this.layoutResourceId = resource;
 		this.context = context;
 		this.inflater = LayoutInflater.from(context);
+		
+		densityPixelOffset = SetDP(pixelOffset);
 	}
 
 	public int getCount() {
@@ -95,29 +100,16 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		
 		//Set Level Padding
 		mMasterRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellMasterRelativeLayout);
-		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*15 + 15, 0, 0, 0);
-		
-		//Set textRelativelayout
-		
-		/*
-		//Draw lines
-		for (int i = 0; i < comments.get(position).Level; i++) {
-			//Create line
-			
-			
-			
-		}
-		
-		final View lineView = new View(context);
-		LayoutParams lineLayoutParams = new LayoutParams(5, mTextTextView.getHeight());
-		lineLayoutParams.setMargins((comments.get(position).Level)*15, 0, 0, 0);
-		lineView.setLayoutParams(lineLayoutParams);
-		lineView.setBackgroundColor(context.getResources().getColor(R.color.HNOrange));
-		
-		//Add line
-		mMasterRelativeLayout.addView(lineView);*/
-		
+		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*densityPixelOffset + densityPixelOffset, 0, 0, 0);
 		
 		return convertView;
+	}
+	
+	/**
+	 * takes the pixels and converts them to density pixels
+	 */
+	private int SetDP(int pixels) {
+		final float density = context.getResources().getDisplayMetrics().density;
+		return (int) (pixels * density + 0.5f);
 	}
 }

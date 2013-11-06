@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class LinkCommentsActivity extends FragmentActivity implements
 
 	public static String selectedLinkUrlString;
 	private int selectedTabIndex;
+	private RelativeLayout mMasterRelativeLayout;
 	private View mLinkLineView, mCommentLineView;
 	private TextView mLinkTextView, mCommentTextView;
 	private FrameLayout mLinkFrameLayout, mCommentsFrameLayout;
@@ -57,6 +59,14 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		// Setup actionbar
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		mMasterRelativeLayout = (RelativeLayout)findViewById(R.id.LinkCommentActivityMasterRelativeLayout);
+		if (SettingsManager.getInstance().usingNightMode) {
+			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(R.color.BackgroundDarkGrey));
+		}
+		else {
+			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(R.color.PostCellDayBackground));
+		}
 
 		// Setup view pager and tabs
 		setupViewPager();

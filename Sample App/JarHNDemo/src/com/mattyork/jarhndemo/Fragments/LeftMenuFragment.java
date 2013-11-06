@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,18 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 																			// changing
 																			// them
 																			// easier
+	// HNProfile
+	private LinearLayout mHNProfileLinearLayout;
+	private TextView mHNProfileUsernameTextView;
+	private TextView mHNProfileKarmaTextView;
+	private TextView mHNProfileMySubmissionsTextView;
+	private TextView mHNProfileLogout;
+
+	// Login
+	private LinearLayout mLoginLinearLayout;
+	private EditText mLoginUsernameEditText;
+	private EditText mLoginPasswordEditText;
+	private TextView mLoginLoginTextView;
 
 	// Settings Linear Layouts
 	private LinearLayout mReadabilityLinearLayout;
@@ -73,9 +86,12 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_left_menu, container);
 
+		//Setup UI
+		setupLogin(view);
 		setupFilterButtons(view);
 		setupSettings(view);
 		setupShareButtons(view);
+		
 		return view;
 	}
 
@@ -229,6 +245,12 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 
 		} else if (v.getId() == mEmailImageView.getId()) {
 
+		} else if (v.getId() == mHNProfileMySubmissionsTextView.getId()) {
+			didSelectMySubmissions();
+		} else if (v.getId() == mHNProfileMySubmissionsTextView.getId()) {
+			didSelectLogout();
+		} else if (v.getId() == mLoginLoginTextView.getId()) {
+			didSelectLogin();
 		}
 	}
 
@@ -238,10 +260,69 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		setThemeUI();
 	}
 
-	//================================================================================
-    // Settings Methods
-    //================================================================================
-	
+	// ================================================================================
+	// Profile Methods
+	// ================================================================================
+
+	private void setupHNProfile(View view) {
+		// Setup connections to layout
+		mHNProfileLinearLayout = (LinearLayout) view
+				.findViewById(R.id.LeftMenuHNProfileLinearLayout);
+		mHNProfileUsernameTextView = (TextView) view
+				.findViewById(R.id.LeftMenuHNProfileUsernameTextView);
+		mHNProfileKarmaTextView = (TextView) view
+				.findViewById(R.id.LeftMenuHNProfileKarmaTextView);
+		mHNProfileMySubmissionsTextView = (TextView) view
+				.findViewById(R.id.LeftMenuHNProfileMySubmissionsTextView);
+		mHNProfileLogout = (TextView) view
+				.findViewById(R.id.LeftMenuHNProfileLogoutTextView);
+
+		// Set content
+
+		// Add listeners
+		mHNProfileMySubmissionsTextView.setOnClickListener(this);
+		mHNProfileLogout.setOnClickListener(this);
+	}
+
+	private void didSelectMySubmissions() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void didSelectLogout() {
+		// TODO Auto-generated method stub
+
+	}
+
+	// ================================================================================
+	// Profile Methods
+	// ================================================================================
+
+	private void setupLogin(View view) {
+		// Setup connections to layout
+		mLoginLinearLayout = (LinearLayout) view
+				.findViewById(R.id.LeftMenuLoginLinearLayout);
+		mLoginUsernameEditText = (EditText) view
+				.findViewById(R.id.leftMenuLoginUsernameEditText);
+		mLoginPasswordEditText = (EditText) view
+				.findViewById(R.id.leftMenuLoginPasswordEditText);
+		mLoginLoginTextView = (TextView) view
+				.findViewById(R.id.LeftMenuLoginLoginTextView);
+
+		// Set content
+
+		// Add listeners
+		mLoginLoginTextView.setOnClickListener(this);
+	}
+
+	private void didSelectLogin() {
+		
+	}
+
+	// ================================================================================
+	// Settings Methods
+	// ================================================================================
+
 	private void setReadabilityUI() {
 		if (SettingsManager.getInstance().usingReadability) {
 			mReadabilityImageView
@@ -280,10 +361,10 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 			mThemeTextView.setText("Theme is Day");
 		}
 	}
-	
-	//================================================================================
-    // Share Methods
-    //================================================================================
+
+	// ================================================================================
+	// Share Methods
+	// ================================================================================
 
 	private void goFacebook() {
 

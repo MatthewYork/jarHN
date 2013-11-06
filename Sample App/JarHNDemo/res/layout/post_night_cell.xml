@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/BackgroundDarkGrey" >
 
+    <!-- Top -->
+    
     <LinearLayout
         android:id="@+id/postCellTopLinearLayout"
         android:layout_width="match_parent"
@@ -47,10 +49,12 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="13sp"
+                android:layout_marginBottom="2dp" />
         </FrameLayout>
     </LinearLayout>
 
+    <!-- Footer -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

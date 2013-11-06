@@ -9,17 +9,107 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <RelativeLayout
+        <!-- HN Profile -->
+
+        <LinearLayout
+            android:id="@+id/LeftMenuHNProfileLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <TextView
+                android:id="@+id/leftMenuHNProfileHeaderTextView"
                 style="@style/LeftMenuHeaderStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LOGIN"
-                android:visibility="gone" />
-        </RelativeLayout>
+                android:text="HN PROFILE" />
+
+            <TextView
+                android:id="@+id/LeftMenuHNProfileUsernameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Username"
+                android:textColor="@color/LeftMenuTextColor" />
+
+            <TextView
+                android:id="@+id/LeftMenuHNProfileKarmaTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="0 karma"
+                android:textColor="@color/LeftMenuTextColor" />
+
+            <TextView
+                android:id="@+id/LeftMenuHNProfileMySubmissionsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="My Submissions"
+                android:textColor="@color/HNOrange" />
+
+            <TextView
+                android:id="@+id/LeftMenuHNProfileLogoutTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Logout"
+                android:textColor="@color/HNOrange" />
+        </LinearLayout>
+
+        <!-- Login -->
+
+        <LinearLayout android:id="@+id/LeftMenuLoginLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/leftMenuLoginHeaderTextView"
+                style="@style/LeftMenuHeaderStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LOGIN" />
+
+            <EditText
+                android:id="@+id/leftMenuLoginUsernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/white"
+                android:gravity="center"
+                android:hint="Username"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/leftMenuLoginPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/PostCellDayBackground"
+                android:gravity="center"
+                android:hint="Password"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/LeftMenuLoginLoginTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Login"
+                android:textColor="@color/HNOrange"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+        <!-- Filter -->
 
         <RelativeLayout
             android:layout_width="match_parent"

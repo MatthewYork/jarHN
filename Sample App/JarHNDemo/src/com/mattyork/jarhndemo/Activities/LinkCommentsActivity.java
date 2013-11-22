@@ -1,28 +1,22 @@
 package com.mattyork.jarhndemo.Activities;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
-import android.R.integer;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
-import com.mattyork.jarhn.HNObjects.HNPost;
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Fragments.CommentsFragment;
 import com.mattyork.jarhndemo.Fragments.LinkFragment;

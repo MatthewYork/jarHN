@@ -1,0 +1,7 @@
+package com.mattyork.jarhndemo.test;
+
+import junit.framework.TestSuite;
+
+public class AllTests extends TestSuite {
+
+}

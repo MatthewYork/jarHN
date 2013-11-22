@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="AllTests" project="JarHNTests" tests="5" started="5" failures="1" errors="0" ignored="0">
+  <testsuite name="samsung-sph_l710-940e257d" time="0.939">
+    <testsuite name="com.mattyork.jarhndemo.test.HNCommentTestCase" time="0.009">
+      <testcase name="testParseComment " classname="com.mattyork.jarhndemo.test.HNCommentTestCase" time="0.009"/>
+    </testsuite>
+    <testsuite name="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.93">
+      <testcase name="testParseAskHNWithCommentsAndExplicitTitle " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.182"/>
+      <testcase name="testParseAskHNWithoutCommentsOrExplicitTitle " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.155"/>
+      <testcase name="testParseJobsWithoutDomain " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.181">
+        <failure>junit.framework.AssertionFailedError: expected:&lt;2&gt; but was:&lt;1&gt;&#13;
+at com.mattyork.jarhndemo.test.HNPostTestCase.compareTwoPosts(HNPostTestCase.java:141)&#13;
+at com.mattyork.jarhndemo.test.HNPostTestCase.testParseJobsWithoutDomain(HNPostTestCase.java:132)&#13;
+at java.lang.reflect.Method.invokeNative(Native Method)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)&#13;
+at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)&#13;
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1619)&#13;
+
+</failure>
+      </testcase>
+      <testcase name="testParseStandardPost " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.412"/>
+    </testsuite>
+  </testsuite>
+</testrun>

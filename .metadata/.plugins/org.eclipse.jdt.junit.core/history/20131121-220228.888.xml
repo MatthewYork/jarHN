@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="AllTests" project="JarHNTests" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="samsung-sph_l710-940e257d" time="0.925">
+    <testsuite name="com.mattyork.jarhndemo.test.HNCommentTestCase" time="0.016">
+      <testcase name="testParseComment " classname="com.mattyork.jarhndemo.test.HNCommentTestCase" time="0.016"/>
+    </testsuite>
+    <testsuite name="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.909">
+      <testcase name="testParseAskHNWithCommentsAndExplicitTitle " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.157"/>
+      <testcase name="testParseAskHNWithoutCommentsOrExplicitTitle " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.156"/>
+      <testcase name="testParseJobsWithoutDomain " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.104"/>
+      <testcase name="testParseStandardPost " classname="com.mattyork.jarhndemo.test.HNPostTestCase" time="0.492"/>
+    </testsuite>
+  </testsuite>
+</testrun>

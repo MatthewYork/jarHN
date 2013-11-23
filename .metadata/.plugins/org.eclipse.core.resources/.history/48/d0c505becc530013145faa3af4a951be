@@ -16,9 +16,10 @@ public class HNPostTestCase extends TestCase {
 		super.tearDown();
 	}
 
-	public void testParseStandardPostNoLogin() throws Throwable {
+	
+	public void testParseStandardPost() throws Throwable {
 
-		String standardPost = "<tr><td align=\"right\" valign=\"top\" class=\"title\">11.</td>"
+		String testPost = "<tr><td align=\"right\" valign=\"top\" class=\"title\">11.</td>"
 				+ "<td><center><a id=\"up_6776753\" href=\"vote?for=6776753&amp;dir=up&amp;whence=%6e%65%77%73\">"
 				+ "<div class=\"votearrow\" title=\"upvote\"></div></a>"
 				+ "<span id=\"down_6776753\"></span></center></td><td class=\"title\">"
@@ -39,20 +40,14 @@ public class HNPostTestCase extends TestCase {
 		expectedPost.UrlDomain = "(techcrunch.com)";
 		expectedPost.Username = "Kopion";
 
-		HNPost actualPost = HNPost.postFromHTML(standardPost);
+		// Parse actual post
+		HNPost actualPost = HNPost.postFromHTML(testPost);
 
-		Assert.assertEquals(expectedPost.Title, actualPost.Title);
-		Assert.assertEquals(expectedPost.UrlString, actualPost.UrlString);
-		Assert.assertEquals(expectedPost.Points, actualPost.Points);
-		Assert.assertEquals(expectedPost.CommentCount, actualPost.CommentCount);
-		Assert.assertEquals(expectedPost.PostId, actualPost.PostId);
-		Assert.assertEquals(expectedPost.Type.ordinal(),
-				actualPost.Type.ordinal());
-		Assert.assertEquals(expectedPost.UrlDomain, actualPost.UrlDomain);
-		Assert.assertEquals(expectedPost.Username, actualPost.Username);
+		// Compare posts
+		compareTwoPosts(expectedPost, actualPost);
 	}
 
-	public void testParseAskHNWithoutExplicitTitle() {
+	public void testParseAskHNWithoutCommentsOrExplicitTitle() throws Throwable {
 		String testPost = "<tr><td align=\"right\" valign=\"top\" class=\"title\">1.</td>"
 				+ "<td><center><a id=\"up_6778868\" href=\"vote?for=6778868&amp;dir=up&amp;whence=%61%73%6b\">"
 				+ "<div class=\"votearrow\" title=\"upvote\"></div></a><span id=\"down_6778868\"></span>"
@@ -70,10 +65,74 @@ public class HNPostTestCase extends TestCase {
 		expectedPost.CommentCount = 0;
 		expectedPost.PostId = "6778868";
 		expectedPost.Type = PostType.PostTypeAskHN;
-		expectedPost.UrlDomain = null;
+		expectedPost.UrlDomain = "";
 		expectedPost.Username = "alfor";
 		expectedPost.TimeCreatedString = "26 minutes ago";
+
+		// Parse actual post
+		HNPost actualPost = HNPost.postFromHTML(testPost);
+
+		// Compare posts
+		compareTwoPosts(expectedPost, actualPost);
+	}
+	
+	public void testParseAskHNWithCommentsAndExplicitTitle() {
+		String testPost = "<tr><td align=\"right\" valign=\"top\" class=\"title\">4.</td>" +
+				"<td><center><a id=\"up_6778810\" href=\"vote?for=6778810&amp;dir=up&amp;whence=%61%73%6b\">" +
+				"<div class=\"votearrow\" title=\"upvote\"></div></a><span id=\"down_6778810\"></span>" +
+				"</center></td><td class=\"title\">" +
+				"<a href=\"item?id=6778810\">Ask HN: Which Has Better Tech Scene - Baltimore Vs DC Vs VA?</a></td>" +
+				"</tr><tr><td colspan=\"2\"></td><td class=\"subtext\">" +
+				"<span id=\"score_6778810\">2 points</span> by <a href=\"user?id=davidsmith8900\">davidsmith8900</a>" +
+				" 48 minutes ago  | <a href=\"item?id=6778810\">2 comments</a></td></tr>";
+
+		// Create desired post
+		HNPost expectedPost = new HNPost();
+		expectedPost.Title = "Ask HN: Which Has Better Tech Scene - Baltimore Vs DC Vs VA?";
+		expectedPost.UrlString = "item?id=6778810";
+		expectedPost.Points = 2;
+		expectedPost.CommentCount = 2;
+		expectedPost.PostId = "6778810";
+		expectedPost.Type = PostType.PostTypeAskHN;
+		expectedPost.UrlDomain = "";
+		expectedPost.Username = "davidsmith8900";
+		expectedPost.TimeCreatedString = "48 minutes ago";
+
+		// Parse actual post
+		HNPost actualPost = HNPost.postFromHTML(testPost);
+
+		// Compare posts
+		compareTwoPosts(expectedPost, actualPost);
+	}
+	
+
+	
+	public void testParseJobsWithoutDomain() {
 		
+		String testPost = "<tr><td align=\"right\" valign=\"top\" class=\"title\">1.</td>" +
+				"<td></td><td class=\"title\"><a href=\"item?id=6778635\">Balanced is hiring #8</a></td></tr>" +
+				"<tr><td colspan=\"2\"></td><td class=\"subtext\">2 hours ago</td></tr>";
+		
+		// Create desired post
+		HNPost expectedPost = new HNPost();
+		expectedPost.Title = "Balanced is hiring #8";
+		expectedPost.UrlString = "item?id=6778635";
+		expectedPost.Points = 0;
+		expectedPost.CommentCount = 0;
+		expectedPost.PostId = "6778635";
+		expectedPost.Type = PostType.PostTypeJobs;
+		expectedPost.UrlDomain = "";
+		expectedPost.Username = "";
+		expectedPost.TimeCreatedString = "2 hours ago";
+
+		// Parse actual post
+		HNPost actualPost = HNPost.postFromHTML(testPost);
+
+		// Compare posts
+		compareTwoPosts(expectedPost, actualPost);
+	}
+
+	private void compareTwoPosts(HNPost expectedPost, HNPost actualPost) {
 		Assert.assertEquals(expectedPost.Title, actualPost.Title);
 		Assert.assertEquals(expectedPost.UrlString, actualPost.UrlString);
 		Assert.assertEquals(expectedPost.Points, actualPost.Points);
@@ -83,6 +142,5 @@ public class HNPostTestCase extends TestCase {
 				actualPost.Type.ordinal());
 		Assert.assertEquals(expectedPost.UrlDomain, actualPost.UrlDomain);
 		Assert.assertEquals(expectedPost.Username, actualPost.Username);
-
 	}
 }

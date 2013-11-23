@@ -13,8 +13,14 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="&quot;" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
+			<item value="debug"/>
+			<item value="&lt;/font&gt;&lt;/p&gt;&lt;p&gt;"/>
+			<item value="&lt;font color=\&quot;#000000\&quot;&gt;"/>
+			<item value="height=\&quot;1\&quot;"/>
+			<item value="reply"/>
+			<item value="level"/>
 			<item value="&quot;"/>
 			<item value="href"/>
 		</list>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import android.R.integer;
+
 import com.mattyork.jarhn.HNUtilities;
 import com.mattyork.jarhn.OMScanner;
 import com.mattyork.jarhn.HNObjects.HNPost.PostType;
@@ -71,58 +73,85 @@ public class HNComment {
 		}
 		
 		for (int xx = 1; xx < htmlComponents.size(); xx++) {
-			OMScanner scanner = new OMScanner(htmlComponents.get(xx));
-			HNComment newComment = new HNComment();
-	        String level = "";
-	        String user = "";
-	        String text = "";
-	        String reply = "";
-	        String commentId = "";
 			
-	        //Get Comment Level
-	        scanner.skipToString("height=1 width=");
-	        newComment.Level = Integer.parseInt(scanner.scanToString(">"))/40;
-	        scanner.setScanIndex(0);
-	        
-	        //Get Username
-	        scanner.skipToString("<a href=\"user?id=");
-	        user = scanner.scanToString("\">");
-	        if (user.length() == 0) {
-				newComment.Username = "[deleted]";
-			}
-	        else {
-	        	newComment.Username = user;
-	        }
-	        
-	        //Get Date/Time
-	        scanner.skipToString("</a> ");
-	        newComment.TimeCreatedString = scanner.scanToString("|");
-	        scanner.setScanIndex(0);
-	        
-	        //Get Comment Text
-	        scanner.skipToString("<font color=");
-	        scanner.skipToString(">");
-	        text =  scanner.scanToString("</font>");
-	        newComment.Text = HNUtilities.stringByReplacingHTMLEntitiesInText(text);
-	        scanner.setScanIndex(0);
-	        
-	        //Get CommentId
-	        scanner.skipToString("reply?id=");
-	        newComment.CommentId = scanner.scanToString("&");
-	        scanner.setScanIndex(0);
-	        
-	        //Get Reply URL Addition
-	        scanner.skipToString("<font size=1><u><a href=\"");
-	        newComment.ReplyURLString = scanner.scanToString("\">reply");
-	        scanner.setScanIndex(0);
-	        
-	        //Get Links
-	        newComment.Links = HNCommentLink.linksFromCommentText(newComment.Text);
-	        
+			//Parse comment
+			HNComment newComment = HNComment.commentFromHTML(htmlComponents.get(xx));
+			
 	        //Add comment to array
 	        comments.add(newComment);
 		}
 		
 		return comments;
+	}
+	
+	public static HNComment commentFromHTML(String htmlString){
+		//Create master scanner
+		OMScanner scanner = new OMScanner(htmlString);
+		
+		//Create empty comment
+		HNComment newComment = new HNComment();
+		newComment.Type = CommentType.CommentTypeDefault;
+        String level = "";
+        String user = "";
+        String text = "";
+        String reply = "";
+        String commentId = "";
+		
+        int contentIndex = -1;
+        
+        //Get Comment Level
+        contentIndex = htmlString.indexOf("height=\"1\" width=\"");
+        if (contentIndex != -1) {
+        	scanner.setScanIndex(contentIndex + "height=\"1\" width=\"".length());
+            newComment.Level = Integer.parseInt(scanner.scanToString("\">"))/40;
+            scanner.setScanIndex(0);
+		}
+        
+        
+        //Get Username
+        scanner.skipToString("<a href=\"user?id=");
+        user = scanner.scanToString("\">");
+        if (user.length() == 0) {
+			newComment.Username = "[deleted]";
+		}
+        else {
+        	newComment.Username = user;
+        }
+        scanner.setScanIndex(0);
+        
+        //Get Date/Time
+        scanner.skipToString(newComment.Username+"</a> ");
+        newComment.TimeCreatedString = scanner.scanToString("  |");
+        scanner.setScanIndex(0);
+        
+        //Get Comment Text
+        contentIndex = htmlString.indexOf("<span class=\"comment\"><font color=\"#000000\">");
+        if (contentIndex != -1) {
+        	scanner.setScanIndex(contentIndex + "<span class=\"comment\"><font color=\"#000000\">".length());
+        	text =  scanner.scanToString("</font></p><p>");
+            newComment.Text = HNUtilities.stringByReplacingHTMLEntitiesInText(text);
+            scanner.setScanIndex(0);
+		}
+        
+        
+        //Get CommentId
+        scanner.skipToString("reply?id=");
+        newComment.CommentId = scanner.scanToString("&");
+        scanner.setScanIndex(0);
+        
+        //Get Reply URL Addition
+        contentIndex = htmlString.indexOf("<font size=\"1\"><u><a href=\"");
+        if (contentIndex != -1) {
+			scanner.setScanIndex(contentIndex +"<font size=\"1\"><u><a href=\"".length());
+			newComment.ReplyURLString = scanner.scanToString("\">reply");
+	        scanner.setScanIndex(0);
+		}
+        
+        //Get Links
+        newComment.Links = HNCommentLink.linksFromCommentText(newComment.Text);
+        
+        newComment.ParentID = "";
+        
+        return newComment;
 	}
 }

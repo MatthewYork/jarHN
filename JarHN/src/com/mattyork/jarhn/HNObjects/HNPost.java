@@ -76,11 +76,11 @@ public class HNPost {
 		scanner.setScanIndex(0);
 
 		// Scan Points
-		contentIndex = htmlString.indexOf("id=\"score_");
+		contentIndex = htmlString.indexOf("id=score_");
 		if (contentIndex != -1) {
-			scanner.setScanIndex(contentIndex + "id=\"score_".length());
+			scanner.setScanIndex(contentIndex + "id=score_".length());
 			scanner.skipToString(">");
-			String pointString = scanner.scanToString(" point");
+			String pointString = scanner.scanToString(" ");
 			newPost.Points = Integer.parseInt(pointString);
 			scanner.setScanIndex(0);
 		}

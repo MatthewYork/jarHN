@@ -3,6 +3,8 @@ package com.mattyork.jarhn.HNObjects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.R.integer;
 
@@ -100,51 +102,68 @@ public class HNComment {
         int contentIndex = -1;
         
         //Get Comment Level
-        contentIndex = htmlString.indexOf("height=\"1\" width=\"");
+        contentIndex = htmlString.indexOf("height=1 width=");
         if (contentIndex != -1) {
-        	scanner.setScanIndex(contentIndex + "height=\"1\" width=\"".length());
-            newComment.Level = Integer.parseInt(scanner.scanToString("\">"))/40;
+        	scanner.setScanIndex(contentIndex + "height=1 width=".length());
+            newComment.Level = Integer.parseInt(scanner.scanToString(">"))/40;
             scanner.setScanIndex(0);
 		}
         
         
         //Get Username
-        scanner.skipToString("<a href=\"user?id=");
-        user = scanner.scanToString("\">");
-        if (user.length() == 0) {
-			newComment.Username = "[deleted]";
-		}
-        else {
-        	newComment.Username = user;
-        }
-        scanner.setScanIndex(0);
-        
-        //Get Date/Time
-        scanner.skipToString(newComment.Username+"</a> ");
-        newComment.TimeCreatedString = scanner.scanToString("  |");
-        scanner.setScanIndex(0);
-        
-        //Get Comment Text
-        contentIndex = htmlString.indexOf("<span class=\"comment\"><font color=\"#000000\">");
+        contentIndex = htmlString.indexOf("<a href=\"user?id=");
         if (contentIndex != -1) {
-        	scanner.setScanIndex(contentIndex + "<span class=\"comment\"><font color=\"#000000\">".length());
-        	text =  scanner.scanToString("</font></p><p>");
-            newComment.Text = HNUtilities.stringByReplacingHTMLEntitiesInText(text);
+        	scanner.setScanIndex(contentIndex + "<a href=\"user?id=".length());
+        	user = scanner.scanToString("\">");
+            if (user.length() == 0) {
+    			newComment.Username = "[deleted]";
+    		}
+            else {
+            	newComment.Username = user;
+            }
             scanner.setScanIndex(0);
 		}
         
-        
-        //Get CommentId
-        scanner.skipToString("reply?id=");
-        newComment.CommentId = scanner.scanToString("&");
-        scanner.setScanIndex(0);
-        
-        //Get Reply URL Addition
-        contentIndex = htmlString.indexOf("<font size=\"1\"><u><a href=\"");
+        //Get Date/Time
+        contentIndex = htmlString.indexOf(newComment.Username+"</a>");
         if (contentIndex != -1) {
-			scanner.setScanIndex(contentIndex +"<font size=\"1\"><u><a href=\"".length());
-			newComment.ReplyURLString = scanner.scanToString("\">reply");
-	        scanner.setScanIndex(0);
+        	 scanner.setScanIndex(contentIndex +newComment.Username.length()+"</a> ".length());
+             newComment.TimeCreatedString = scanner.scanToString("  |");
+             scanner.setScanIndex(0);
+		}
+        else if (htmlString.indexOf(newComment.Username+"</font></a>") != -1) {
+        	scanner.setScanIndex(htmlString.indexOf(newComment.Username+"</font></a>") +newComment.Username.length()+"</font></a> ".length());
+            newComment.TimeCreatedString = scanner.scanToString("  |");
+            scanner.setScanIndex(0);
+		}
+        
+        //Get Comment Text
+        newComment.Text = "";
+        ArrayList<Integer> commentIndexes = HNComment.findIndexes(htmlString, "<span class=\"comment\"><font color=", scanner);
+        for (Integer index : commentIndexes) {
+        	if (index != -1) {
+            	scanner.setScanIndex(index + "<span class=\"comment\"><font color=#000000>".length());
+            	text =  scanner.scanToString("</font>");
+            	
+            	if (newComment.Text.equals("")) {
+            		newComment.Text = HNUtilities.stringByReplacingHTMLEntitiesInText(text);
+				}
+            	else {
+            		newComment.Text = newComment.Text +"\n\n"+HNUtilities.stringByReplacingHTMLEntitiesInText(text);
+            	}
+                scanner.setScanIndex(0);
+    		}
+		}
+        
+        //Get Comment Id
+        contentIndex = htmlString.indexOf("<a href=\"reply?id=");
+        if (contentIndex != -1) {
+			scanner.setScanIndex(contentIndex + "<a href=\"reply?id=".length());
+			newComment.CommentId = scanner.scanToString("&");
+	        
+			//Get Reply Url String
+			scanner.setScanIndex(contentIndex + "<a href=\"".length());
+	        newComment.ReplyURLString = scanner.scanToString("\">");
 		}
         
         //Get Links
@@ -153,5 +172,21 @@ public class HNComment {
         newComment.ParentID = "";
         
         return newComment;
+	}
+	
+	private static ArrayList<Integer> findIndexes(String baseString, String matchString, OMScanner scanner){
+		scanner.setScanIndex(0);
+		ArrayList<Integer> matches = new ArrayList<Integer>();
+		
+		Integer contentIndex = 0;
+		while (contentIndex != -1) {
+			contentIndex = baseString.substring(scanner.getScanIndex(), baseString.length()-1).indexOf(matchString);
+			if (contentIndex != -1) {
+				matches.add(contentIndex);
+				scanner.setScanIndex(contentIndex + matchString.length());
+			}
+		}
+		
+	    return matches;
 	}
 }

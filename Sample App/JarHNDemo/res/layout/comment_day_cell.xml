@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:text="Username"
             android:textColor="@color/PostCellTextColor"
             android:textSize="12sp" />
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
             android:text="Date"
             android:textColor="@color/PostCellTextColor"
             android:textSize="12sp" />

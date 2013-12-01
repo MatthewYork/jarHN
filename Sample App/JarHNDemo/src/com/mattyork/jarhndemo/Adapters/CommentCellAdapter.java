@@ -15,6 +15,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.mattyork.jarhn.HNObjects.HNComment;
+import com.mattyork.jarhn.HNObjects.HNComment.CommentType;
 import com.mattyork.jarhndemo.R;
 
 public class CommentCellAdapter extends ArrayAdapter<HNComment> {
@@ -101,6 +102,16 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		//Set Level Padding
 		mMasterRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellMasterRelativeLayout);
 		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*densityPixelOffset + densityPixelOffset, 0, 0, 0);
+		
+		//Handle askHN and jobsHN top cell formatting
+		if (position == 0) {
+			if (comments.get(position).Type.equals(CommentType.CommentTypeAskHN)) {
+				mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.AskHNOrange));
+			}
+			else if (comments.get(position).Type.equals(CommentType.CommentTypeJobs)) {
+				mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
+			}
+		}
 		
 		return convertView;
 	}

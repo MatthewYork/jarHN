@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class LinkCommentsActivity extends FragmentActivity implements
 	public static String selectedLinkUrlString;
 	private int selectedTabIndex;
 	private RelativeLayout mMasterRelativeLayout;
+	private LinearLayout mTabbarContainerLinearLayout;
 	private View mLinkLineView, mCommentLineView;
 	private TextView mLinkTextView, mCommentTextView;
 	private FrameLayout mLinkFrameLayout, mCommentsFrameLayout;
@@ -71,14 +73,23 @@ public class LinkCommentsActivity extends FragmentActivity implements
 
 		// Get link from extra
 		selectedLinkUrlString = this.getIntent().getStringExtra("url");
-		if (SettingsManager.getInstance().usingReadability) {
-			selectedLinkUrlString = "http://www.readability.com/m?url="
-					+ selectedLinkUrlString;
+		if (selectedLinkUrlString.contains("http")) { //External link
+			if (SettingsManager.getInstance().usingReadability) {
+				selectedLinkUrlString = "http://www.readability.com/m?url="
+						+ selectedLinkUrlString;
+			}
+		}
+		else { //Internal HN Link
+			//Remove top tab bar
+			mTabbarContainerLinearLayout.setVisibility(View.GONE);
+			
+			//Move to comments page
+			mLinkCommentsViewPager.setCurrentItem(1, false);
+			
+			//Disable paging
+			mLinkCommentsViewPager.setEnabled(false);
 		}
 		
-		//Get/set starting tab
-		int startingTabIndex = this.getIntent().getIntExtra("selectedContent", 0);
-		mLinkCommentsViewPager.setCurrentItem(startingTabIndex);
 	}
 
 	private void setupViewPager() {
@@ -99,6 +110,7 @@ public class LinkCommentsActivity extends FragmentActivity implements
 
 	private void setupTabs() {
 		// Setup Views
+		mTabbarContainerLinearLayout = (LinearLayout)findViewById(R.id.TabBarContainerLinearLayout);
 		mLinkFrameLayout = (FrameLayout) findViewById(R.id.LinkFrameLayout);
 		mCommentsFrameLayout = (FrameLayout) findViewById(R.id.CommentsFrameLayout);
 		mLinkTextView = (TextView) findViewById(R.id.LinkTextView);

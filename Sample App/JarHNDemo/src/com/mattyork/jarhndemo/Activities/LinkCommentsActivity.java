@@ -1,7 +1,9 @@
 package com.mattyork.jarhndemo.Activities;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+import android.R.menu;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +25,7 @@ import com.mattyork.jarhn.HNObjects.HNPost.PostType;
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Fragments.CommentsFragment;
 import com.mattyork.jarhndemo.Fragments.LinkFragment;
+import com.mattyork.jarhndemo.Helpers.HackerNewsViewPager;
 import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
 public class LinkCommentsActivity extends FragmentActivity implements
@@ -36,15 +39,17 @@ public class LinkCommentsActivity extends FragmentActivity implements
 	private TextView mLinkTextView, mCommentTextView;
 	private FrameLayout mLinkFrameLayout, mCommentsFrameLayout;
 	PullToRefreshAttacher mPullToRefreshAttacher;
-	
-	ViewPager mLinkCommentsViewPager;
+
+	HackerNewsViewPager mLinkCommentsViewPager;
 	LinkCommentPagerAdapter mPageAdapter;
 
 	public static String selectedLinkUrl = "";
 	private static int selectedPostType = PostType.PostTypeDefault.ordinal();
+	public String formattedUrl = "";
+	
 
 	private ShareActionProvider mShareActionProvider;
-	
+
 	public PullToRefreshAttacher getmPullToRefreshAttacher() {
 		return mPullToRefreshAttacher;
 	}
@@ -55,60 +60,68 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_link);
 
+		
+
 		// Setup actionbar
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		mMasterRelativeLayout = (RelativeLayout)findViewById(R.id.LinkCommentActivityMasterRelativeLayout);
+
+		mMasterRelativeLayout = (RelativeLayout) findViewById(R.id.LinkCommentActivityMasterRelativeLayout);
 		if (SettingsManager.getInstance().usingNightMode) {
-			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(R.color.BackgroundDarkGrey));
-		}
-		else {
-			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(R.color.PostCellDayBackground));
+			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(
+					R.color.BackgroundDarkGrey));
+		} else {
+			mMasterRelativeLayout.setBackgroundColor(getResources().getColor(
+					R.color.PostCellDayBackground));
 		}
 
 		// Setup view pager and tabs
 		setupViewPager();
 		setupTabs();
-		
+
 		// Create a PullToRefreshAttacher instance
-	    mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
+		mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
 		// Get link from extra
 		selectedLinkUrlString = this.getIntent().getStringExtra("url");
-		if (selectedLinkUrlString.contains("http")) { //External link
+		if (selectedLinkUrlString.contains("http")) { // External link
+			formattedUrl = selectedLinkUrlString;
+
 			if (SettingsManager.getInstance().usingReadability) {
 				selectedLinkUrlString = "http://www.readability.com/m?url="
 						+ selectedLinkUrlString;
 			}
-			
-			selectedPostType = this.getIntent().getIntExtra("selectedPostType", 0);
+
+			selectedPostType = this.getIntent().getIntExtra("selectedPostType",
+					0);
 			if (selectedPostType == PostType.PostTypeJobs.ordinal()) {
-				//Remove top tab bar
+				// Remove top tab bar
 				mTabbarContainerLinearLayout.setVisibility(View.GONE);
-				
-				//Move to comments page
+
+				// Move to comments page
 				mLinkCommentsViewPager.setCurrentItem(0, false);
-				
-				//Disable paging
+
+				// Disable paging
 				mLinkCommentsViewPager.setEnabled(false);
 			}
-		}
-		else { //Internal HN Link
-			//Remove top tab bar
+		} else { // Internal HN Link
+			formattedUrl = "http://news.ycombinator.com/"
+					+ selectedLinkUrlString;
+
+			// Remove top tab bar
 			mTabbarContainerLinearLayout.setVisibility(View.GONE);
-			
-			//Move to comments page
+
+			// Move to comments page
 			mLinkCommentsViewPager.setCurrentItem(1, false);
-			
-			//Disable paging
-			mLinkCommentsViewPager.setEnabled(false);
+
+			// Disable paging
+			mLinkCommentsViewPager.setPagingEnabled(false);
 		}
-		
+
 	}
 
 	private void setupViewPager() {
-		mLinkCommentsViewPager = (ViewPager) findViewById(R.id.linkCommentViewPager);
+		mLinkCommentsViewPager = (HackerNewsViewPager) findViewById(R.id.linkCommentViewPager);
 		mPageAdapter = new LinkCommentPagerAdapter(getSupportFragmentManager());
 		mLinkCommentsViewPager.setAdapter(mPageAdapter);
 		mLinkCommentsViewPager
@@ -119,13 +132,16 @@ public class LinkCommentsActivity extends FragmentActivity implements
 						// corresponding tab.
 						selectedTabIndex = position;
 						updateTabUI();
+						if(position==1){
+							
+						}
 					}
 				});
 	}
 
 	private void setupTabs() {
 		// Setup Views
-		mTabbarContainerLinearLayout = (LinearLayout)findViewById(R.id.TabBarContainerLinearLayout);
+		mTabbarContainerLinearLayout = (LinearLayout) findViewById(R.id.TabBarContainerLinearLayout);
 		mLinkFrameLayout = (FrameLayout) findViewById(R.id.LinkFrameLayout);
 		mCommentsFrameLayout = (FrameLayout) findViewById(R.id.CommentsFrameLayout);
 		mLinkTextView = (TextView) findViewById(R.id.LinkTextView);
@@ -164,15 +180,14 @@ public class LinkCommentsActivity extends FragmentActivity implements
 			// Toggle sliding layer
 			this.finish();
 			break;
-		case R.id.menu_item_share:
-			// Trigger share menu
-			break;
 		default:
 			break;
 		}
 
 		return super.onMenuItemSelected(featureId, item);
 	}
+
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,7 +198,11 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		MenuItem item = menu.findItem(R.id.menu_item_share);
 
 		// Fetch and store ShareActionProvider
-		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+		// mShareActionProvider = (ShareActionProvider)
+		// item.getActionProvider();
+		mShareActionProvider = (ShareActionProvider) (ShareActionProvider) menu
+				.findItem(R.id.menu_item_share).getActionProvider();
+		setShareIntent(getDefaultShareIntent());
 
 		// Return true to display menu
 		return true;
@@ -196,8 +215,17 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		}
 	}
 
+	private Intent getDefaultShareIntent() {
+		Intent mShareIntent = new Intent(Intent.ACTION_SEND);
+		mShareIntent.setType("text/plain");
+		mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "News Y/C");
+		mShareIntent.putExtra(Intent.EXTRA_TEXT,
+				"Check out this article from hacker news: " + formattedUrl);
+		return mShareIntent;
+	}
+
 	public static class LinkCommentPagerAdapter extends FragmentPagerAdapter {
-		private LinkFragment linkFragment;
+		public LinkFragment linkFragment;
 		private CommentsFragment commentsFragment;
 
 		public LinkCommentPagerAdapter(FragmentManager fm) {
@@ -209,6 +237,8 @@ public class LinkCommentsActivity extends FragmentActivity implements
 			return 2;
 		}
 
+		
+		
 		@Override
 		public Fragment getItem(int position) {
 			if (position == 0) {

@@ -1,5 +1,9 @@
 package com.mattyork.jarhn;
 
+import java.util.ArrayList;
+
+import com.mattyork.jarhn.HNObjects.HNIndexSet;
+
 import android.R.anim;
 import android.R.integer;
 
@@ -23,33 +27,62 @@ public class HNUtilities {
 		text = text.replace("</code></pre>", "");
 
 		// Replace <a> tags
-		OMScanner scanner = new OMScanner(text);
-		String goodText = "", runningString = text;
-		int contentIndex = -1;
+		ArrayList<HNIndexSet> linkIndexes = linkIndexesArrayList(text);
+		int replacementOffset = 0;
+		
+		for (int ii = 0; ii < linkIndexes.size(); ii++) {
+			int beginningContentIndex = linkIndexes.get(ii).start - replacementOffset;
+			int endContentIndex = linkIndexes.get(ii).end - replacementOffset;
 
-		int beginningContentIndex = text.indexOf("<a href=");
-		int endContentIndex = text.indexOf("</a>");
+			if (beginningContentIndex != -1 && endContentIndex != -1) {
+				String linkSubString = text.substring(beginningContentIndex,
+						endContentIndex);
+				String formattedLinkSubString = linkSubString.replace(" rel=\"nofollow\">", "");
+				formattedLinkSubString = formattedLinkSubString.replace("<a href=", "");
+				formattedLinkSubString = formattedLinkSubString.replace("</a>", "");
+				formattedLinkSubString = formattedLinkSubString.replace("</font>", "");
 
-		if (beginningContentIndex != -1 && endContentIndex != -1) {
-			String linkSubString = text.substring(beginningContentIndex,
-					endContentIndex);
-			text = text.replace(" rel=\"nofollow\">", "");
-			text = text.replace("<a href=", "");
-			text = text.replace("</a>", "");
-			text = text.replace("</font>", "");
-			
-			 int startQuoteIndex = linkSubString.indexOf("\""); 
-			 int endQuoteIndex = linkSubString.lastIndexOf("\""); 
-			 
-			 if (startQuoteIndex != -1 && endQuoteIndex != -1) {
-				linkSubString = linkSubString.substring(startQuoteIndex,
-						endQuoteIndex);
-				text = text.replace(linkSubString, "");
+				int endQuoteIndex = formattedLinkSubString.lastIndexOf("\"");
+				formattedLinkSubString = formattedLinkSubString.substring(1, endQuoteIndex);
+
+				text = text.replace(linkSubString, formattedLinkSubString);
+				replacementOffset += (linkSubString.length() - formattedLinkSubString.length());
 			}
-			
-
 		}
-
+		
+		text = text.replace(" rel=\"nofollow\">", "");
+		text = text.replace("<a href=", "");
+		text = text.replace("</a>", "");
+		text = text.replace("</font>", "");
+		
 		return text;
 	}
+
+	private static ArrayList<HNIndexSet> linkIndexesArrayList(String text) {
+		ArrayList<HNIndexSet> indexes = new ArrayList<HNIndexSet>();
+		
+		if (text.contains("<a href=")) {
+			OMScanner scanner = new OMScanner(text);
+			
+			while (text.substring(scanner.getScanIndex()).contains("<a href=")) {
+				scanner.skipToString("<a href=");
+				int startIndex = scanner.getScanIndex();
+				scanner.scanToString("</a>");
+				int endIndex = scanner.getScanIndex();
+
+				indexes.add(new HNIndexSet(startIndex, endIndex));
+				//scanner.setScanIndex(scanner.getScanIndex()+ "<a href=".length());
+				
+				if (scanner.getScanIndex() >= text.length()) {
+					break;
+				}
+			}
+		}
+		
+		return indexes;
+	}
+	
+	
 }
+
+

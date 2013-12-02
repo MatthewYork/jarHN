@@ -105,14 +105,19 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		mMasterRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellMasterRelativeLayout);
 		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*densityPixelOffset + densityPixelOffset, 0, 0, 0);
 		
+		
 		//Set default background color
 		if (SettingsManager.getInstance().usingNightMode) {
 			mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
 			mTextTextView.setTextColor(context.getResources().getColor(R.color.CommentCellNightHeaderTextColor));
+			mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
+			mHeaderRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.PostCellLightGrey));
 		}
 		else {
 			mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayBackground));
 			mTextTextView.setTextColor(context.getResources().getColor(R.color.PostCellTextColor));
+			mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayBackground));
+			mHeaderRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayFooterBackgroud));
 		}
 		
 		//Handle askHN and jobsHN top cell formatting

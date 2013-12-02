@@ -3,7 +3,13 @@
     <color name="HNOrange">#FF6325</color>
     <color name="BackgroundDarkGrey">#333333</color>
     <color name="ShowHNOrange">#954E30</color>
+    <color name="ShowHNOrangeDay">#FAA386</color>
+    <color name="ShowHNFooterOrange">#733D2A</color>
+    <color name="ShowHNFooterOrangeDay">#CB856F</color>
     <color name="JobsHNGreen">#3C7847</color>
+    <color name="JobsHNGreenDay">#ACEABA</color>
+    <color name="JobsHNFooterGreen">#2E5938</color>
+    <color name="JobsHNFooterGreenDay">#81B18E</color>
     <color name="AskHNOrange">#954E30</color>
     <color name="PostCellLightGrey">#404040</color>
     <color name="LeftMenuBackgroundDarkGrey">#1C1C1C</color>

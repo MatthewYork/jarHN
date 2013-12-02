@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mattyork.jarhn.HNObjects.HNPost;
@@ -31,6 +32,7 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 	TextView mDateCreatedTextView;
 	TextView mCommentCountTextView;
 	ImageView mCommentImageView;
+	LinearLayout mFooterLinearLayout;
 
 	public PostsCellAdapter(Context context, int resource,
 			ArrayList<HNPost> posts) {
@@ -110,19 +112,40 @@ public class PostsCellAdapter extends ArrayAdapter<HNPost> {
 			}
 		});
 		
+		//Connect footer
+		mFooterLinearLayout = (LinearLayout)convertView.findViewById(R.id.PostCellFooterLinearLayout);
+		
 		//Set background color
 		if (posts.get(position).Type == PostType.PostTypeShowHN) {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrange));
-			mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+			if (SettingsManager.getInstance().usingNightMode) {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrange));
+				mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.ShowHNFooterOrange));
+			}
+			else {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.ShowHNOrangeDay));
+				//mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.ShowHNFooterOrangeDay));
+			}
 		} else if (posts.get(position).Type == PostType.PostTypeJobs) {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
-			mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+			if (SettingsManager.getInstance().usingNightMode) {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
+				mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.JobsHNFooterGreen));
+			}
+			else {
+				convertView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreenDay));
+				//mPostTitleTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.JobsHNFooterGreenDay));
+			}
 		} else if (posts.get(position).Type == PostType.PostTypeDefault) {
 			if (SettingsManager.getInstance().usingNightMode) {
 				convertView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.PostCellLightGrey));
 			}
 			else {
 				convertView.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayBackground));
+				mFooterLinearLayout.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayFooterBackgroud));
 			}
 		}
 

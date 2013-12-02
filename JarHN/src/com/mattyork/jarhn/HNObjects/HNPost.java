@@ -62,13 +62,14 @@ public class HNPost {
 
 		OMScanner scanner = new OMScanner(htmlString);
 		int contentIndex = -1;
-		
+
 		// Scan Url
 		contentIndex = htmlString.indexOf("<a href=\"");
 		if (contentIndex != -1) {
 			scanner.setScanIndex(contentIndex + "<a href=\"".length());
 			newPost.UrlString = scanner.scanToString("\">");
-			newPost.UrlString = newPost.UrlString.replace("\" rel=\"nofollow", "");
+			newPost.UrlString = newPost.UrlString.replace("\" rel=\"nofollow",
+					"");
 		}
 
 		// Scan Title
@@ -96,7 +97,7 @@ public class HNPost {
 		// Scan Author
 		contentIndex = htmlString.indexOf("<a href=\"user?id=");
 		if (contentIndex != -1) {
-			scanner.setScanIndex(contentIndex+"<a href=\"user?id=".length());
+			scanner.setScanIndex(contentIndex + "<a href=\"user?id=".length());
 			scanner.skipToString(">");
 			newPost.Username = scanner.scanToString("</a> ");
 		} else {
@@ -106,7 +107,8 @@ public class HNPost {
 		if (htmlString.contains("  |")) {
 			// Scan Time Ago
 			newPost.TimeCreatedString = scanner.scanToString("  |");
-		} else {
+		} else if (htmlString.contains("<td class=\"subtext\">")) {
+			scanner.setScanIndex(0);
 			scanner.skipToString("<td class=\"subtext\">");
 			newPost.TimeCreatedString = scanner.scanToString("</td>");
 		}
@@ -125,8 +127,10 @@ public class HNPost {
 			} else {
 				OMScanner commentScanner = new OMScanner(commentString);
 				commentScanner.skipToString(">");
-				newPost.CommentCount = Integer.parseInt(commentScanner
-						.scanToString(" "));
+				String commentCountString = commentScanner.scanToString(" ");
+				if (!commentCountString.contains("comm")) {
+					newPost.CommentCount = Integer.parseInt(commentCountString);
+				}
 			}
 		} else if (htmlString.contains("<a href=\"item?id=")) {
 			OMScanner idScanner = new OMScanner(htmlString);

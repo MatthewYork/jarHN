@@ -6,6 +6,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.OnRefreshListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Type;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -181,6 +182,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		//Build intent and start activity
 		Intent i = new Intent(this, LinkCommentsActivity.class);
 		i.putExtra("url", posts.get(position).UrlString);
+		i.putExtra("selectedPostType", posts.get(position).Type.ordinal());
 		i.putExtra("selectedContent", 0);// MAKE THIS REACTIVE TO ASK, JOBS!!!
 		this.startActivity(i);
 	}

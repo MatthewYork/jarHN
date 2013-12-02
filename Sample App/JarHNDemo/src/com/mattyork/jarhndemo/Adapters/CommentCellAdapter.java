@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.mattyork.jarhn.HNObjects.HNComment;
 import com.mattyork.jarhn.HNObjects.HNComment.CommentType;
 import com.mattyork.jarhndemo.R;
+import com.mattyork.jarhndemo.Helpers.SettingsManager;
 
 public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 	ArrayList<HNComment> comments;
@@ -26,6 +27,7 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 	
 	RelativeLayout mMasterRelativeLayout;
 	RelativeLayout mHeaderRelativeLayout;
+	RelativeLayout mCommentTextRelativeLayout;
 	TextView mUsernameTextView;
 	TextView mDateTextView;
 	TextView mTextTextView;
@@ -103,13 +105,25 @@ public class CommentCellAdapter extends ArrayAdapter<HNComment> {
 		mMasterRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.CommentCellMasterRelativeLayout);
 		mMasterRelativeLayout.setPadding((comments.get(position).Level - 1)*densityPixelOffset + densityPixelOffset, 0, 0, 0);
 		
+		//Set default background color
+		if (SettingsManager.getInstance().usingNightMode) {
+			mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.BackgroundDarkGrey));
+			mTextTextView.setTextColor(context.getResources().getColor(R.color.CommentCellNightHeaderTextColor));
+		}
+		else {
+			mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.PostCellDayBackground));
+			mTextTextView.setTextColor(context.getResources().getColor(R.color.PostCellTextColor));
+		}
+		
 		//Handle askHN and jobsHN top cell formatting
 		if (position == 0) {
 			if (comments.get(position).Type.equals(CommentType.CommentTypeAskHN)) {
-				mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.AskHNOrange));
+				mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.AskHNOrange));
+				mTextTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
 			}
 			else if (comments.get(position).Type.equals(CommentType.CommentTypeJobs)) {
-				mMasterRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
+				mTextTextView.setBackgroundColor(context.getResources().getColor(R.color.JobsHNGreen));
+				mTextTextView.setTextColor(context.getResources().getColor(R.color.LightTextColor));
 			}
 		}
 		

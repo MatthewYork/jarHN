@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
+import com.mattyork.jarhn.HNObjects.HNComment.CommentType;
+import com.mattyork.jarhn.HNObjects.HNPost.PostType;
 import com.mattyork.jarhndemo.R;
 import com.mattyork.jarhndemo.Fragments.CommentsFragment;
 import com.mattyork.jarhndemo.Fragments.LinkFragment;
@@ -39,6 +41,7 @@ public class LinkCommentsActivity extends FragmentActivity implements
 	LinkCommentPagerAdapter mPageAdapter;
 
 	public static String selectedLinkUrl = "";
+	private static int selectedPostType = PostType.PostTypeDefault.ordinal();
 
 	private ShareActionProvider mShareActionProvider;
 	
@@ -77,6 +80,18 @@ public class LinkCommentsActivity extends FragmentActivity implements
 			if (SettingsManager.getInstance().usingReadability) {
 				selectedLinkUrlString = "http://www.readability.com/m?url="
 						+ selectedLinkUrlString;
+			}
+			
+			selectedPostType = this.getIntent().getIntExtra("selectedPostType", 0);
+			if (selectedPostType == PostType.PostTypeJobs.ordinal()) {
+				//Remove top tab bar
+				mTabbarContainerLinearLayout.setVisibility(View.GONE);
+				
+				//Move to comments page
+				mLinkCommentsViewPager.setCurrentItem(0, false);
+				
+				//Disable paging
+				mLinkCommentsViewPager.setEnabled(false);
 			}
 		}
 		else { //Internal HN Link

@@ -58,7 +58,8 @@ public class CommentsFragment extends Fragment implements OnItemClickListener, O
 		//Setup listview
 				mCommentsListView = (ListView)view.findViewById(R.id.CommentsListView);
 				mCommentsListView.setOnItemClickListener(this);
-
+				mCommentsListView.setFastScrollEnabled(true);
+				
 			    // Add the Refreshable View and provide the refresh listener
 			    mPullToRefreshAttacher.addRefreshableView(mCommentsListView, this);
 	}

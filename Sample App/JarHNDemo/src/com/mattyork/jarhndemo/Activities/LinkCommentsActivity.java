@@ -46,7 +46,7 @@ public class LinkCommentsActivity extends FragmentActivity implements
 	public static String selectedLinkUrl = "";
 	private static int selectedPostType = PostType.PostTypeDefault.ordinal();
 	public String formattedUrl = "";
-	
+	private int selectedContentType = 0;
 
 	private ShareActionProvider mShareActionProvider;
 
@@ -60,7 +60,9 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_link);
 
-		
+		// Get selected content type
+		selectedContentType = getIntent().getExtras().getInt("selectedContent",
+				0);
 
 		// Setup actionbar
 		getActionBar().setHomeButtonEnabled(true);
@@ -82,6 +84,9 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		// Create a PullToRefreshAttacher instance
 		mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
+		// Move to correct page
+		mLinkCommentsViewPager.setCurrentItem(selectedContentType, false);
+
 		// Get link from extra
 		selectedLinkUrlString = this.getIntent().getStringExtra("url");
 		if (selectedLinkUrlString.contains("http")) { // External link
@@ -98,26 +103,26 @@ public class LinkCommentsActivity extends FragmentActivity implements
 				// Remove top tab bar
 				mTabbarContainerLinearLayout.setVisibility(View.GONE);
 
-				// Move to comments page
+				// Move to correct page
 				mLinkCommentsViewPager.setCurrentItem(0, false);
-
-				// Disable paging
-				mLinkCommentsViewPager.setEnabled(false);
+				
+				//Disable Paging
+				mLinkCommentsViewPager.setPagingEnabled(false);
 			}
+
 		} else { // Internal HN Link
+			// Move to correct page
+			mLinkCommentsViewPager.setCurrentItem(1, false);
+			
 			formattedUrl = "http://news.ycombinator.com/"
 					+ selectedLinkUrlString;
 
 			// Remove top tab bar
 			mTabbarContainerLinearLayout.setVisibility(View.GONE);
 
-			// Move to comments page
-			mLinkCommentsViewPager.setCurrentItem(1, false);
-
 			// Disable paging
 			mLinkCommentsViewPager.setPagingEnabled(false);
 		}
-
 	}
 
 	private void setupViewPager() {
@@ -132,8 +137,8 @@ public class LinkCommentsActivity extends FragmentActivity implements
 						// corresponding tab.
 						selectedTabIndex = position;
 						updateTabUI();
-						if(position==1){
-							
+						if (position == 1) {
+
 						}
 					}
 				});
@@ -187,8 +192,6 @@ public class LinkCommentsActivity extends FragmentActivity implements
 		return super.onMenuItemSelected(featureId, item);
 	}
 
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -237,8 +240,6 @@ public class LinkCommentsActivity extends FragmentActivity implements
 			return 2;
 		}
 
-		
-		
 		@Override
 		public Fragment getItem(int position) {
 			if (position == 0) {

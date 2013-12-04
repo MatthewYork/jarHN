@@ -3,6 +3,9 @@ package com.mattyork.jarhndemo.Fragments;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -60,6 +63,11 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	private ImageView mTwitterImageView;
 	private ImageView mEmailImageView;
 
+	// Credits
+	private LinearLayout mMattGithubLinearLayout;
+	private LinearLayout mMattTwitterLinearLayout;
+	private LinearLayout mAaronGithubTwitterLinearLayout;
+
 	OnLeftMenuSettingChangedListener mCallbackLeftMenuSettingChangedListener;
 
 	@Override
@@ -86,12 +94,13 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_left_menu, container);
 
-		//Setup UI
+		// Setup UI
 		setupLogin(view);
 		setupFilterButtons(view);
 		setupSettings(view);
 		setupShareButtons(view);
-		
+		setupCreditsButtons(view);
+
 		return view;
 	}
 
@@ -173,6 +182,18 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 		mEmailImageView.setOnClickListener(this);
 	}
 
+	private void setupCreditsButtons(View view) {
+		mMattGithubLinearLayout = (LinearLayout) view
+				.findViewById(R.id.LeftMenuCreditsMattGithub);
+		mMattGithubLinearLayout.setOnClickListener(this);
+		mMattTwitterLinearLayout = (LinearLayout) view
+				.findViewById(R.id.LeftMenuCreditsMattTwitter);
+		mMattTwitterLinearLayout.setOnClickListener(this);
+		mAaronGithubTwitterLinearLayout = (LinearLayout) view
+				.findViewById(R.id.LeftMenuCreditsAaron);
+		mAaronGithubTwitterLinearLayout.setOnClickListener(this);
+	}
+
 	private void setButtonSelected(View selectedButton) {
 		for (Button button : buttonsArrayList) {
 			if (button.getId() == selectedButton.getId()) {
@@ -226,31 +247,58 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		if (v.getId() == mReadabilityLinearLayout.getId()) {
+		switch (v.getId()) {
+		case R.id.leftMenuSettingsReadabilityLinearLayout:
 			SettingsManager.getInstance().setusingReadability(
 					!SettingsManager.getInstance().usingReadability);
 			setReadabilityUI();
-		} else if (v.getId() == mMarkAsReadLinearLayout.getId()) {
+			break;
+		case R.id.leftMenuSettingsMarkAsReadLinearLayout:
 			SettingsManager.getInstance().setUsingMarkAsRead(
 					!SettingsManager.getInstance().usingMarkAsRead);
 			setMarkAsReadUI();
-		} else if (v.getId() == mThemeLinearLayout.getId()) {
+			break;
+		case R.id.leftMenuSettingsThemeLinearLayout:
 			SettingsManager.getInstance().setUsingNightMode(
 					!SettingsManager.getInstance().usingNightMode);
 			setThemeUI();
-		} else if (v.getId() == mFacebookImageView.getId()) {
+			break;
+		case R.id.LeftMenuHNProfileMySubmissionsTextView:
 
-		} else if (v.getId() == mTwitterImageView.getId()) {
+			break;
+		case R.id.LeftMenuHNProfileLogoutTextView:
 
-		} else if (v.getId() == mEmailImageView.getId()) {
+			break;
+		case R.id.LeftMenuLoginLoginTextView:
 
-		} else if (v.getId() == mHNProfileMySubmissionsTextView.getId()) {
-			didSelectMySubmissions();
-		} else if (v.getId() == mHNProfileMySubmissionsTextView.getId()) {
-			didSelectLogout();
-		} else if (v.getId() == mLoginLoginTextView.getId()) {
-			didSelectLogin();
+			break;
+		case R.id.LeftMenuCreditsMattGithub:
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://github.com/MatthewYork"));
+			startActivity(browserIntent);
+			break;
+		case R.id.LeftMenuCreditsMattTwitter:
+			goToTwitterUser("TheMattYork");
+			break;
+		case R.id.LeftMenuCreditsAaron:
+			Intent browserIntentAaron = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://github.com/adfleshner"));
+			startActivity(browserIntentAaron);
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	private void goToTwitterUser(String username) {
+		try {
+			startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("twitter://user?screen_name=" + username)));
+		} catch (Exception e) {
+			// If Twitter app is not installed, start browser.
+			startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://twitter.com/" + username)));
 		}
 	}
 
@@ -316,7 +364,7 @@ public class LeftMenuFragment extends Fragment implements OnClickListener {
 	}
 
 	private void didSelectLogin() {
-		
+
 	}
 
 	// ================================================================================

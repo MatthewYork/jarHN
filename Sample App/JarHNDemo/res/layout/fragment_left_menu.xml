@@ -60,12 +60,12 @@
 
         <!-- Login -->
 
-        <LinearLayout android:id="@+id/LeftMenuLoginLinearLayout"
+        <LinearLayout
+            android:id="@+id/LeftMenuLoginLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-             >
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/leftMenuLoginHeaderTextView"
@@ -207,7 +207,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/leftMenuSettingsReadabilityLinearLayout"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/leftMenuSettingsMarkAsReadImageView"
@@ -248,8 +249,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/LeftMenuShareHeader"
@@ -295,11 +296,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CREDITS" />
-            
-            
+
+            <LinearLayout
+                android:id="@+id/LeftMenuCreditsMattGithub"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/github" />
+
+                <TextView
+                    style="@style/LeftMenuSettingsTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="\@MatthewYork" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LeftMenuCreditsMattTwitter"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/twitter" />
+
+                <TextView
+                    style="@style/LeftMenuSettingsTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="\@TheMattYork" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LeftMenuCreditsAaron"
+                style="@style/LeftMenuSettingsLinearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/github" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/twitter" />
+
+                <TextView
+                    style="@style/LeftMenuSettingsTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="\@adfleshner" />
+            </LinearLayout>
         </LinearLayout>
-        
-        
     </LinearLayout>
 
 </ScrollView>

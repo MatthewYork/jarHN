@@ -183,7 +183,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		Intent i = new Intent(this, LinkCommentsActivity.class);
 		i.putExtra("url", posts.get(position).UrlString);
 		i.putExtra("selectedPostType", posts.get(position).Type.ordinal());
-		i.putExtra("selectedContent", 0);// MAKE THIS REACTIVE TO ASK, JOBS!!!
+		i.putExtra("selectedContent", 0);
 		this.startActivity(i);
 	}
 	
